@@ -12,6 +12,7 @@ He answers 'Whatever.' to anything else.
 
 const char* s_answerEmpty = "Fine. Be that way!";
 const char* s_answerQuestion = "Sure.";
+const char* s_answerYell = "Whoa, chill out!";
 
 const char* TellToBob(const std::string& question)
 {
@@ -31,3 +32,9 @@ TEST(Bob, Ask)
 {
     EXPECT_STREQ(s_answerQuestion, TellToBob("Are you robot?"));
 }
+
+TEST(Bob, Yell)
+{
+    EXPECT_STREQ(s_answerYell, TellToBob("Bob!"));
+}
+
