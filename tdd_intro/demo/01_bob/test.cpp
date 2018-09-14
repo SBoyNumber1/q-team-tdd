@@ -13,6 +13,7 @@ He answers 'Whatever.' to anything else.
 const char* s_answerEmpty = "Fine. Be that way!";
 const char* s_answerQuestion = "Sure.";
 const char* s_answerYell = "Whoa, chill out!";
+const char* s_answerOther = "Whatever.";
 
 const char* TellToBob(const std::string& question)
 {
@@ -20,7 +21,14 @@ const char* TellToBob(const std::string& question)
     {
         return s_answerEmpty;
     }
-    return s_answerQuestion;
+    if (question.back() == '?')
+    {
+        return s_answerQuestion;
+    }
+    else
+    {
+        return s_answerYell;
+    }
 }
 
 TEST(Bob, Empty)
@@ -36,5 +44,10 @@ TEST(Bob, Ask)
 TEST(Bob, Yell)
 {
     EXPECT_STREQ(s_answerYell, TellToBob("Bob!"));
+}
+
+TEST(Bob, BlaBlaBla)
+{
+    EXPECT_STREQ(s_answerOther, TellToBob("Bla-bla-bla"));
 }
 
