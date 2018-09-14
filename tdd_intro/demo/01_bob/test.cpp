@@ -12,7 +12,11 @@ He answers 'Whatever.' to anything else.
 
 const char* TellToBob(const std::string& question)
 {
-    return "Fine. Be that way!";
+    if (question.empty())
+    {
+        return "Fine. Be that way!";
+    }
+    return "Sure.";
 }
 
 TEST(Bob, Empty)
