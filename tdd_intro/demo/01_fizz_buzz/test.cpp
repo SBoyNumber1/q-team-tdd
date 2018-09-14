@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <string>
 
 /*
  * The program should answer "Fizz" if the input number is multiple of 3, Buzz - if you specify a number which is multiple of 5,
@@ -8,3 +9,13 @@
  * a multiple of 15 = FizzBuzz
  * any other number = <nothing>
 */
+
+std::string FizzBuzz(size_t number)
+{
+    return { };
+}
+
+TEST(FizzBuzzTest, Fizz)
+{
+    EXPECT_STREQ("Fizz", FizzBuzz(3).c_str());
+}
