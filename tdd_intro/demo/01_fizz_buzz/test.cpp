@@ -16,7 +16,11 @@ std::string FizzBuzz(size_t number)
     {
         return "Fizz";
     }
-    return "Buzz";
+    else if (number % 5 == 0)
+    {
+        return "Buzz";
+    }
+    return "";
 }
 
 TEST(FizzBuzzTest, Fizz)
