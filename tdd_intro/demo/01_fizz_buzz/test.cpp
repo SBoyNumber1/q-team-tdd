@@ -12,15 +12,16 @@
 
 std::string FizzBuzz(size_t number)
 {
+    std::string answer;
     if (number % 3 == 0)
     {
-        return "Fizz";
+        answer += "Fizz";
     }
-    else if (number % 5 == 0)
+    if (number % 5 == 0)
     {
-        return "Buzz";
+        answer += "Buzz";
     }
-    return "";
+    return answer;
 }
 
 TEST(FizzBuzzTest, Fizz)
