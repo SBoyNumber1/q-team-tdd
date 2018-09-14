@@ -10,21 +10,24 @@ He answers 'Whatever.' to anything else.
 #include <gtest/gtest.h>
 #include <string>
 
+const char* s_answerEmpty = "Fine. Be that way!";
+const char* s_answerQuestion = "Sure.";
+
 const char* TellToBob(const std::string& question)
 {
     if (question.empty())
     {
-        return "Fine. Be that way!";
+        return s_answerEmpty;
     }
-    return "Sure.";
+    return s_answerQuestion;
 }
 
 TEST(Bob, Empty)
 {
-    EXPECT_STREQ("Fine. Be that way!", TellToBob(""));
+    EXPECT_STREQ(s_answerEmpty, TellToBob(""));
 }
 
 TEST(Bob, Ask)
 {
-    EXPECT_STREQ("Sure.", TellToBob("Are you robot?"));
+    EXPECT_STREQ(s_answerQuestion, TellToBob("Are you robot?"));
 }
