@@ -21,14 +21,15 @@ const char* TellToBob(const std::string& question)
     {
         return s_answerEmpty;
     }
-    if (question.back() == '?')
+    else if (question.back() == '?')
     {
         return s_answerQuestion;
     }
-    else
+    else if (question.back() == '!')
     {
         return s_answerYell;
     }
+    return s_answerOther;
 }
 
 TEST(Bob, Empty)
