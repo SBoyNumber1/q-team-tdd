@@ -16,7 +16,7 @@ std::string FizzBuzz(size_t number)
     {
         return "Fizz";
     }
-    return "";
+    return "Buzz";
 }
 
 TEST(FizzBuzzTest, Fizz)
