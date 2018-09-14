@@ -23,3 +23,8 @@ TEST(FizzBuzzTest, Fizz)
 {
     EXPECT_STREQ("Fizz", FizzBuzz(3).c_str());
 }
+
+TEST(FizzBuzzTest, Buzz)
+{
+    EXPECT_STREQ("Buzz", FizzBuzz(5).c_str());
+}
