@@ -43,3 +43,18 @@ TEST(FizzBuzzTest, FizzBuzz)
 {
     EXPECT_STREQ("FizzBuzz", FizzBuzz(15).c_str());
 }
+
+TEST(FizzBuzzTest, Acceptance)
+{
+    EXPECT_STREQ("", FizzBuzz(2).c_str());
+    EXPECT_STREQ("", FizzBuzz(71).c_str());
+    EXPECT_STREQ("", FizzBuzz(1111).c_str());
+
+    EXPECT_STREQ("Fizz", FizzBuzz(6).c_str());
+    EXPECT_STREQ("Fizz", FizzBuzz(99).c_str());
+    EXPECT_STREQ("Fizz", FizzBuzz(363).c_str());
+
+    EXPECT_STREQ("FizzBuzz", FizzBuzz(30).c_str());
+    EXPECT_STREQ("FizzBuzz", FizzBuzz(120).c_str());
+    EXPECT_STREQ("FizzBuzz", FizzBuzz(3300).c_str());
+}
