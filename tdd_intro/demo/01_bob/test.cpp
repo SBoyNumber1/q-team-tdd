@@ -19,3 +19,8 @@ TEST(Bob, TellSomething)
 {
     auto answer = TellToBob("My name is Todd");
 }
+
+TEST(Bob, Whatever)
+{
+    ASSERT_STREQ("Whatever.", TellToBob("My name is Todd"));
+}
