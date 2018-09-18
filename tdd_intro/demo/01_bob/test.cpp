@@ -15,6 +15,10 @@ static const char* s_sureAnswer = "Sure.";
 
 const char* TellToBob(const std::string& message)
 {
+    if (message.empty())
+    {
+        return "Fine. Be that way!";
+    }
     if (message.back() == '?')
     {
         return s_sureAnswer;
