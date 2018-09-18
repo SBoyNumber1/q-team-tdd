@@ -8,6 +8,12 @@ He says 'Fine. Be that way!' if you address him without actually saying anything
 He answers 'Whatever.' to anything else.
 */
 #include <gtest/gtest.h>
+#include <string>
+
+const char* TellToBob(const std::string& message)
+{
+    return {};
+}
 
 TEST(Bob, TellSomething)
 {
