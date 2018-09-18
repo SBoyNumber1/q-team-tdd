@@ -14,7 +14,7 @@ static const char* s_whateverAnswer = "Whatever.";
 
 const char* TellToBob(const std::string& message)
 {
-    if (message == "Are you robot?")
+    if (message == "Are you robot?" || message == "You Bob?")
     {
         return "Sure.";
     }
