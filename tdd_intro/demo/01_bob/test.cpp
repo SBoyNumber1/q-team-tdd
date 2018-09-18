@@ -30,3 +30,8 @@ TEST(Bob, Sure)
 {
     ASSERT_STREQ("Sure.", TellToBob("Are you robot?"));
 }
+
+TEST(Bob, Sure2)
+{
+    ASSERT_STREQ("Sure.", TellToBob("You Bob?"));
+}
