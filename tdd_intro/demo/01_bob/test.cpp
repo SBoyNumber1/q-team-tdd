@@ -10,17 +10,14 @@ He answers 'Whatever.' to anything else.
 #include <gtest/gtest.h>
 #include <string>
 
+static const char* s_whateverAnswer = "Whatever.";
+
 const char* TellToBob(const std::string& message)
 {
-    return "Whatever.";
-}
-
-TEST(Bob, TellSomething)
-{
-    auto answer = TellToBob("My name is Todd");
+    return s_whateverAnswer;
 }
 
 TEST(Bob, Whatever)
 {
-    ASSERT_STREQ("Whatever.", TellToBob("My name is Todd"));
+    ASSERT_STREQ(s_whateverAnswer, TellToBob("My name is Todd"));
 }
