@@ -12,12 +12,13 @@ He answers 'Whatever.' to anything else.
 
 static const char* s_whateverAnswer = "Whatever.";
 static const char* s_sureAnswer = "Sure.";
+static const char* s_fineAnswer = "Fine. Be that way!";
 
 const char* TellToBob(const std::string& message)
 {
     if (message.empty())
     {
-        return "Fine. Be that way!";
+        return s_fineAnswer;
     }
     if (message.back() == '?')
     {
@@ -43,5 +44,5 @@ TEST(Bob, Sure2)
 
 TEST(Bob, Fine)
 {
-    ASSERT_STREQ("Fine. Be that way!", TellToBob(""));
+    ASSERT_STREQ(s_fineAnswer, TellToBob(""));
 }
