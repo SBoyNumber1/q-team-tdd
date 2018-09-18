@@ -13,6 +13,7 @@ He answers 'Whatever.' to anything else.
 static const char* s_whateverAnswer = "Whatever.";
 static const char* s_sureAnswer = "Sure.";
 static const char* s_fineAnswer = "Fine. Be that way!";
+static const char* s_chillOutAnswer = "Whoa, chill out!";
 
 const char* TellToBob(const std::string& message)
 {
@@ -23,6 +24,10 @@ const char* TellToBob(const std::string& message)
     if (message.back() == '?')
     {
         return s_sureAnswer;
+    }
+    else if (message.back() == '!')
+    {
+        return s_chillOutAnswer;
     }
     return s_whateverAnswer;
 }
@@ -49,5 +54,5 @@ TEST(Bob, Fine)
 
 TEST(Bob, ChillOut)
 {
-    ASSERT_STREQ("Whoa, chill out!", TellToBob("Answer something different!"));
+    ASSERT_STREQ(s_chillOutAnswer, TellToBob("Answer something different!"));
 }
