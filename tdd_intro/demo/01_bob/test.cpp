@@ -46,3 +46,8 @@ TEST(Bob, Fine)
 {
     ASSERT_STREQ(s_fineAnswer, TellToBob(""));
 }
+
+TEST(Bob, ChillOut)
+{
+    ASSERT_STREQ("Whoa, chill out!", TellToBob("Answer something different!"));
+}
