@@ -12,7 +12,7 @@ He answers 'Whatever.' to anything else.
 
 const char* TellToBob(const std::string& message)
 {
-    return {};
+    return "Whatever.";
 }
 
 TEST(Bob, TellSomething)
