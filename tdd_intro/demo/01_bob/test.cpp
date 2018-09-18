@@ -21,3 +21,8 @@ TEST(Bob, Whatever)
 {
     ASSERT_STREQ(s_whateverAnswer, TellToBob("My name is Todd"));
 }
+
+TEST(Bob, Sure)
+{
+    ASSERT_STREQ("Sure.", TellToBob("Are you robot?"));
+}
