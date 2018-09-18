@@ -11,12 +11,13 @@ He answers 'Whatever.' to anything else.
 #include <string>
 
 static const char* s_whateverAnswer = "Whatever.";
+static const char* s_sureAnswer = "Sure.";
 
 const char* TellToBob(const std::string& message)
 {
     if (message.back() == '?')
     {
-        return "Sure.";
+        return s_sureAnswer;
     }
     return s_whateverAnswer;
 }
@@ -28,10 +29,10 @@ TEST(Bob, Whatever)
 
 TEST(Bob, Sure)
 {
-    ASSERT_STREQ("Sure.", TellToBob("Are you robot?"));
+    ASSERT_STREQ(s_sureAnswer, TellToBob("Are you robot?"));
 }
 
 TEST(Bob, Sure2)
 {
-    ASSERT_STREQ("Sure.", TellToBob("You Bob?"));
+    ASSERT_STREQ(s_sureAnswer, TellToBob("You Bob?"));
 }
