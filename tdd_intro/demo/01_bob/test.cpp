@@ -36,3 +36,8 @@ TEST(Bob, Sure2)
 {
     ASSERT_STREQ(s_sureAnswer, TellToBob("You Bob?"));
 }
+
+TEST(Bob, Fine)
+{
+    ASSERT_STREQ("Fine. Be that way!", TellToBob(""));
+}
