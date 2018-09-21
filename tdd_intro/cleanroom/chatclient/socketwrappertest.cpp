@@ -7,7 +7,8 @@ TEST(SocketWrapperTest, EstablishConnection)
     SocketWrapper listener;
     SocketWrapper client;
 
-    // Name "localhost" doesn't work! Use the next address to establish connection within the local computer.
+    // Name "localhost" doesn't work! Use the next address
+    // to establish connection within the local computer.
     const char* address = "127.0.0.1";
     const int port = 4444;
 
