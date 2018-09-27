@@ -23,3 +23,13 @@ public:
   virtual bool IsExpired() const = 0;
   virtual Duration TimeLeft() const = 0;
 };
+
+class Timer: public ITimer
+{
+public:
+    Timer();
+
+    virtual void Start() = 0;
+    virtual bool IsExpired() const = 0;
+    virtual Duration TimeLeft() const = 0;
+};
