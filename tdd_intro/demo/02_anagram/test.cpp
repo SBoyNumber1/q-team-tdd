@@ -7,6 +7,11 @@ _from http://exercism.io/_
 */
 #include <gtest/gtest.h>
 
+bool IsAnagrams(const std::string& left, const std::string& right)
+{
+    return true;
+}
+
 TEST (IsAnagrams, first_test)
 {
     EXPECT_FALSE(IsAnagrams("", ""));
