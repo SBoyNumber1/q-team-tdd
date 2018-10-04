@@ -7,6 +7,8 @@ _from http://exercism.io/_
 */
 #include <gtest/gtest.h>
 
+using Anagrams = std::vector<std::string>;
+
 bool IsAnagrams(std::string left, std::string right)
 {
     if (left == right || left.empty() || right.empty())
@@ -18,11 +20,14 @@ bool IsAnagrams(std::string left, std::string right)
     return left == right;
 }
 
-std::vector<std::string> GetAnagrams(const std::string& word, const std::vector<std::string>& candidates)
+Anagrams GetAnagrams(const std::string& word, const std::vector<std::string>& candidates)
 {
-    if (word == "listen" &&  candidates == std::vector<std::string>({"inlets"}))
+    for (const auto& candidate : candidates)
     {
-        return {"inlets"};
+        if (IsAnagrams(word, candidate))
+        {
+            return {candidate};
+        }
     }
 
     return {};
@@ -50,10 +55,10 @@ TEST (IsAnagrams, anagrams_return_true)
 
 TEST (GetAnagrams, empty_list_empty_word)
 {
-    EXPECT_EQ(std::vector<std::string>(), GetAnagrams("", std::vector<std::string>()));
+    EXPECT_EQ(Anagrams(), GetAnagrams("", std::vector<std::string>()));
 }
 
 TEST (GetAnagrams, anagrams_single_word_in_list)
 {
-    EXPECT_EQ(std::vector<std::string>({"inlets"}), GetAnagrams("listen", {"inlets"}));
+    EXPECT_EQ(Anagrams({"inlets"}), GetAnagrams("listen", {"inlets"}));
 }
