@@ -64,3 +64,8 @@ TEST (GetAnagrams, two_anagrams_in_list)
 {
     EXPECT_EQ(Anagrams({"acb", "cba"}), GetAnagrams("abc", {"acb", "cba"}));
 }
+
+TEST (GetAnagrams, two_anagrams_in_list_different_sequence)
+{
+    EXPECT_EQ(Anagrams({"acb", "cba"}), GetAnagrams("abc", {"cba", "acb"}));
+}
