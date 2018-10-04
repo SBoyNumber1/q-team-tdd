@@ -48,3 +48,7 @@ TEST (GetAnagrams, empty_list_empty_word)
     EXPECT_EQ(std::vector<std::string>(), GetAnagrams("", std::vector<std::string>()));
 }
 
+TEST (GetAnagrams, anagrams_single_word_in_list)
+{
+    EXPECT_EQ(std::vector<std::string>({"inlets"}), GetAnagrams("listen", {"inlets"}));
+}
