@@ -18,6 +18,11 @@ bool IsAnagrams(std::string left, std::string right)
     return left == right;
 }
 
+std::vector<std::string> GetAnagrams(const std::string& word, const std::vector<std::string>& candidates)
+{
+    return {};
+}
+
 TEST (IsAnagrams, empty_words)
 {
     EXPECT_FALSE(IsAnagrams("", ""));
