@@ -33,3 +33,8 @@ TEST (IsAnagrams, non_anagrams_return_false)
     EXPECT_FALSE(IsAnagrams("listen", "google"));
 }
 
+TEST (IsAnagrams, anagrams_return_true)
+{
+    EXPECT_TRUE(IsAnagrams("listen", "inlets"));
+}
+
