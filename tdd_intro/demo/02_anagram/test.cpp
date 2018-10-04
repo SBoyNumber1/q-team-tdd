@@ -9,7 +9,7 @@ _from http://exercism.io/_
 
 bool IsAnagrams(const std::string& left, const std::string& right)
 {
-    return true;
+    return false;
 }
 
 TEST (IsAnagrams, first_test)
