@@ -22,15 +22,11 @@ bool IsAnagrams(std::string left, std::string right)
 
 Anagrams GetAnagrams(const std::string& word, const std::vector<std::string>& candidates)
 {
-    Anagrams anagrams;
-    for (const auto& candidate : candidates)
-    {
-        if (IsAnagrams(word, candidate))
-        {
-            anagrams.push_back(candidate);
-        }
-    }
+    Anagrams anagrams (candidates.size());
+    auto it = std::copy_if(candidates.begin(), candidates.end(), anagrams.begin(),
+                         [&](const std::string& candidate) {return IsAnagrams(word, candidate);});
 
+    anagrams.resize(std::distance(anagrams.begin(), it));
     return anagrams;
 }
 
