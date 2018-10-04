@@ -38,3 +38,8 @@ TEST (IsAnagrams, anagrams_return_true)
     EXPECT_TRUE(IsAnagrams("listen", "inlets"));
 }
 
+TEST (GetAnagrams, empty_list_empty_word)
+{
+    EXPECT_EQ(std::vector<std::string>(), GetAnagrams("", std::vector<std::string>()));
+}
+
