@@ -7,17 +7,15 @@ _from http://exercism.io/_
 */
 #include <gtest/gtest.h>
 
-bool IsAnagrams(const std::string& left, const std::string& right)
+bool IsAnagrams(std::string left, std::string right)
 {
-    if (left == right)
+    if (left == right || left.empty() || right.empty())
     {
         return false;
     }
-    if (left == "listen" && right == "google")
-    {
-        return false;
-    }
-    return !left.empty() && !right.empty();
+    std::sort (left.begin(), left.end());
+    std::sort (right.begin(), right.end());
+    return left == right;
 }
 
 TEST (IsAnagrams, empty_words)
