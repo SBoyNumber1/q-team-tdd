@@ -7,7 +7,7 @@ _from http://exercism.io/_
 */
 #include <gtest/gtest.h>
 
-using Anagrams = std::vector<std::string>;
+using Anagrams = std::set<std::string>;
 
 bool IsAnagrams(std::string left, std::string right)
 {
@@ -22,11 +22,10 @@ bool IsAnagrams(std::string left, std::string right)
 
 Anagrams GetAnagrams(const std::string& word, const std::vector<std::string>& candidates)
 {
-    Anagrams anagrams (candidates.size());
-    auto it = std::copy_if(candidates.begin(), candidates.end(), anagrams.begin(),
+    Anagrams anagrams;
+    std::copy_if(candidates.begin(), candidates.end(), std::inserter(anagrams, anagrams.end()),
                          [&](const std::string& candidate) {return IsAnagrams(word, candidate);});
 
-    anagrams.resize(std::distance(anagrams.begin(), it));
     return anagrams;
 }
 
