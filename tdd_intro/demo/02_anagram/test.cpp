@@ -62,3 +62,8 @@ TEST (GetAnagrams, anagrams_single_word_in_list)
 {
     EXPECT_EQ(Anagrams({"inlets"}), GetAnagrams("listen", {"inlets"}));
 }
+
+TEST (GetAnagrams, two_anagrams_in_list)
+{
+    EXPECT_EQ(Anagrams({"acb", "cba"}), GetAnagrams("abc", {"acb", "cba"}));
+}
