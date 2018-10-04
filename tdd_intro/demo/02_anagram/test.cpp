@@ -12,7 +12,7 @@ bool IsAnagrams(const std::string& left, const std::string& right)
     return !left.empty() && !right.empty();
 }
 
-TEST (IsAnagrams, first_test)
+TEST (IsAnagrams, empty_words)
 {
     EXPECT_FALSE(IsAnagrams("", ""));
 }
