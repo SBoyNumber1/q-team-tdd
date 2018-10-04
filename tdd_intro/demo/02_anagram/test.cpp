@@ -16,3 +16,8 @@ TEST (IsAnagrams, empty_words)
 {
     EXPECT_FALSE(IsAnagrams("", ""));
 }
+
+TEST (IsAnagrams, same_words_return_false)
+{
+    EXPECT_FALSE(IsAnagrams("word", "word"));
+}
