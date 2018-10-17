@@ -79,7 +79,11 @@ public:
     {
         if (m_started)
         {
-            return m_duration - (m_time.GetCurrent() - m_startTime);
+            auto timeElapsed = (m_time.GetCurrent() - m_startTime);
+            if (timeElapsed < m_duration)
+            {
+                return m_duration - timeElapsed;
+            }
         }
         return s_zeroDuration;
     }
