@@ -25,7 +25,9 @@ Timer can be started again any time, no metter in what state it is
  * Check IsExpired when duration is not 0 and started
  * Check TimeLeft when not started (expected: 0)
  * Check TimeLeft within the given duration and timer is started
- * Check IsExpired within the given duration and timer is started
+ * Check IsExpired within the given duration and timer is started:
+ *  immediatly
+ *  after some waiting
  * Check TimeLeft when is expired (expected: 0)
  * Check IsExpired when no time left
  * Check the starting of timer when it is already started
