@@ -17,6 +17,18 @@ Timer can be started again any time, no metter in what state it is
  * Desired behavior:
  * IsExpired returns true if is not started
  * Timeleft returns 0 if is not started or expired
+ *
+ * Steps:
+ * Implement Start with no check
+ * Check IsExpired when is not started
+ * Check IsExpired when duration is 0 and started
+ * Check IsExpired when duration is not 0 and started
+ * Check TimeLeft when not started (expected: 0)
+ * Check TimeLeft within the given duration and timer is started
+ * Check IsExpired within the given duration and timer is started
+ * Check TimeLeft when is expired (expected: 0)
+ * Check IsExpired when no time left
+ * Check the starting of timer when it is already started
 */
 
 #include <gtest/gtest.h>
