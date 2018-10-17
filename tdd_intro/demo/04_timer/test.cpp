@@ -67,7 +67,7 @@ public:
     { }
 
     virtual bool IsExpired() const override
-    { return true; }
+    { return m_duration == seconds(0); }
 
     virtual Duration TimeLeft() const override
     { return { }; }
