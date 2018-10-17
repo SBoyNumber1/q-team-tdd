@@ -104,3 +104,11 @@ TEST(Timer, IsExpired_0AndStarted)
     timer.Start();
     ASSERT_TRUE(timer.IsExpired());
 }
+
+TEST(Timer, IsExpired_Not0AndStarted)
+{
+    FakeTime time;
+    Timer timer(time, seconds(1));
+    timer.Start();
+    ASSERT_FALSE(timer.IsExpired());
+}
