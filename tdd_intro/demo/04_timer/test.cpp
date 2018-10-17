@@ -67,7 +67,10 @@ public:
     { }
 
     virtual void Start() override
-    { m_started = true; }
+    {
+        m_started = true;
+        m_startTime = m_time.GetCurrent();
+    }
 
     virtual bool IsExpired() const override
     { return m_duration == s_zeroDuration; }
@@ -76,12 +79,7 @@ public:
     {
         if (m_started)
         {
-            auto currentTime = m_time.GetCurrent();
-            if (currentTime.time_since_epoch() != s_zeroDuration)
-            {
-                return m_duration - currentTime.time_since_epoch();
-            }
-            return m_duration;
+            return m_duration - (m_time.GetCurrent() - m_startTime);
         }
         return s_zeroDuration;
     }
@@ -90,6 +88,7 @@ private:
     ITime& m_time;
     Duration m_duration;
     bool m_started;
+    TimePoint m_startTime;
 };
 
 class FakeTime: public ITime
