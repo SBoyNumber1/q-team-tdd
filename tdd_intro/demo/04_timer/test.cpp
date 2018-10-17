@@ -112,3 +112,10 @@ TEST(Timer, IsExpired_Not0AndStarted)
     timer.Start();
     ASSERT_FALSE(timer.IsExpired());
 }
+
+TEST(Timer, TimeLeft_NotStarted)
+{
+    FakeTime time;
+    Timer timer(time, seconds(1));
+    ASSERT_EQ(seconds(0), timer.TimeLeft());
+}
