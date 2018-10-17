@@ -220,3 +220,18 @@ TEST(Timer, IsExpired_TimeIsLeft)
     time.Wait(seconds(2));
     ASSERT_FALSE(timer.IsExpired());
 }
+
+TEST(Timer, IsExpired_TimeLeaft_AfterTimerRestart)
+{
+    FakeTime time;
+    time.Wait(seconds(1));
+    Timer timer(time, seconds(5));
+    timer.Start();
+    time.Wait(seconds(2));
+    ASSERT_EQ(seconds(3), timer.TimeLeft());
+
+    // Restarting the timer
+    timer.Start();
+    ASSERT_EQ(seconds(5), timer.TimeLeft());
+}
+
