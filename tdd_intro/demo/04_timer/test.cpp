@@ -73,7 +73,10 @@ public:
     }
 
     virtual bool IsExpired() const override
-    { return m_duration == s_zeroDuration; }
+    {
+        auto timeElapsed = (m_time.GetCurrent() - m_startTime);
+        return timeElapsed >= m_duration;
+    }
 
     virtual Duration TimeLeft() const override
     {
