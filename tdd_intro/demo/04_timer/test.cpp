@@ -63,13 +63,24 @@ public:
         : m_time(time), m_duration(duration)
     { }
 
-    virtual void Start() override;
-    virtual bool IsExpired() const override;
-    virtual Duration TimeLeft() const override;
+    virtual void Start() override
+    { }
+
+    virtual bool IsExpired() const override
+    { return false; }
+
+    virtual Duration TimeLeft() const override
+    { return { }; }
 
 private:
     ITime& m_time;
     Duration m_duration;
+};
+
+class FakeTime: public ITime
+{
+public:
+    virtual TimePoint GetCurrent() { return { }; }
 };
 
 TEST(Timer, StartNoCheck)
@@ -78,3 +89,4 @@ TEST(Timer, StartNoCheck)
     Timer timer(time, seconds(0));
     timer.Start();
 }
+
