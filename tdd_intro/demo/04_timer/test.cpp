@@ -79,7 +79,7 @@ public:
             auto currentTime = m_time.GetCurrent();
             if (currentTime.time_since_epoch() != s_zeroDuration)
             {
-                return seconds(1);
+                return m_duration - currentTime.time_since_epoch();
             }
             return m_duration;
         }
