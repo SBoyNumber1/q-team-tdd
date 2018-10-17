@@ -136,3 +136,10 @@ TEST(Timer, TimeLeft_Started)
     ASSERT_EQ(seconds(1), timer.TimeLeft());
 }
 
+TEST(Timer, TimeLeft_Started2)
+{
+    FakeTime time;
+    Timer timer(time, seconds(2));
+    timer.Start();
+    ASSERT_EQ(seconds(2), timer.TimeLeft());
+}
