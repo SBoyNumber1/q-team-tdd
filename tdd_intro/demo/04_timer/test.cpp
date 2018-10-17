@@ -38,6 +38,7 @@ using namespace std::chrono;
 typedef high_resolution_clock Clock;
 typedef Clock::duration Duration;
 typedef time_point<Clock> TimePoint;
+static const Duration s_zeroDuration(microseconds(0));
 
 class ITimer {
 public:
@@ -67,7 +68,7 @@ public:
     { m_started = true; }
 
     virtual bool IsExpired() const override
-    { return m_duration == seconds(0); }
+    { return m_duration == s_zeroDuration; }
 
     virtual Duration TimeLeft() const override
     {
@@ -75,7 +76,7 @@ public:
         {
             return m_duration;
         }
-        return seconds(0);
+        return s_zeroDuration;
     }
 
 private:
@@ -93,21 +94,21 @@ public:
 TEST(Timer, StartNoCheck)
 {
     FakeTime time;
-    Timer timer(time, seconds(0));
+    Timer timer(time, s_zeroDuration);
     timer.Start();
 }
 
 TEST(Timer, IsExpired_NotStarted)
 {
     FakeTime time;
-    Timer timer(time, seconds(0));
+    Timer timer(time, s_zeroDuration);
     ASSERT_TRUE(timer.IsExpired());
 }
 
 TEST(Timer, IsExpired_0AndStarted)
 {
     FakeTime time;
-    Timer timer(time, seconds(0));
+    Timer timer(time, s_zeroDuration);
     timer.Start();
     ASSERT_TRUE(timer.IsExpired());
 }
