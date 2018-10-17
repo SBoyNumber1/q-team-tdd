@@ -90,3 +90,9 @@ TEST(Timer, StartNoCheck)
     timer.Start();
 }
 
+TEST(Timer, ExpiredNoStarted)
+{
+    FakeTime time;
+    Timer timer(time, seconds(0));
+    ASSERT_TRUE(timer.IsExpired());
+}
