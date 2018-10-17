@@ -76,6 +76,11 @@ public:
     {
         if (m_started)
         {
+            auto currentTime = m_time.GetCurrent();
+            if (currentTime.time_since_epoch() != s_zeroDuration)
+            {
+                return seconds(1);
+            }
             return m_duration;
         }
         return s_zeroDuration;
@@ -156,8 +161,6 @@ TEST(Timer, TimeLeft_Started_AfterWaiting)
     FakeTime time;
     Timer timer(time, seconds(2));
     timer.Start();
-    time.Wait(seconds(0));
+    time.Wait(seconds(1));
     ASSERT_EQ(seconds(1), timer.TimeLeft());
 }
-
-
