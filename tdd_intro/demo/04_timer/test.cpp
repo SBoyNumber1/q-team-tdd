@@ -197,3 +197,13 @@ TEST(Timer, TimeLeft_Expired)
     ASSERT_EQ(seconds(0), timer.TimeLeft());
 }
 
+TEST(Timer, IsExpired_NoTimeLeft)
+{
+    FakeTime time;
+    time.Wait(seconds(2));
+    Timer timer(time, seconds(3));
+    timer.Start();
+    time.Wait(seconds(6));
+    ASSERT_TRUE(timer.IsExpired());
+}
+
