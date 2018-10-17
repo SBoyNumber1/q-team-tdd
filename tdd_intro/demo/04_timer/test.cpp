@@ -30,6 +30,7 @@ Timer can be started again any time, no metter in what state it is
  *  after some waiting
  * Check TimeLeft when is expired (expected: 0)
  * Check IsExpired when no time left
+ * Check IsExpired when time is left
  * Check the starting of timer when it is already started
 */
 
@@ -210,3 +211,12 @@ TEST(Timer, IsExpired_NoTimeLeft)
     ASSERT_TRUE(timer.IsExpired());
 }
 
+TEST(Timer, IsExpired_TimeIsLeft)
+{
+    FakeTime time;
+    time.Wait(seconds(2));
+    Timer timer(time, seconds(5));
+    timer.Start();
+    time.Wait(seconds(2));
+    ASSERT_FALSE(timer.IsExpired());
+}
