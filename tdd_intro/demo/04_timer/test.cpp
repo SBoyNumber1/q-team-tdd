@@ -182,3 +182,14 @@ TEST(Timer, TimeLeft_Wait_Started_AfterWaiting)
     time.Wait(seconds(3));
     ASSERT_EQ(seconds(7), timer.TimeLeft());
 }
+
+TEST(Timer, TimeLeft_Expired)
+{
+    FakeTime time;
+    time.Wait(seconds(2));
+    Timer timer(time, seconds(4));
+    timer.Start();
+    time.Wait(seconds(6));
+    ASSERT_EQ(seconds(0), timer.TimeLeft());
+}
+
