@@ -48,10 +48,26 @@ public:
   virtual Duration TimeLeft() const = 0;
 };
 
+class ITime
+{
+public:
+    virtual ~ITime() { }
+
+    virtual TimePoint GetCurrent() = 0;
+};
+
 class Timer: public ITimer
 {
 public:
+    Timer(ITime& time, Duration duration)
+        : m_time(time), m_duration(duration)
+    { }
+
     virtual void Start() override;
     virtual bool IsExpired() const override;
     virtual Duration TimeLeft() const override;
+
+private:
+    ITime& m_time;
+    Duration m_duration;
 };
