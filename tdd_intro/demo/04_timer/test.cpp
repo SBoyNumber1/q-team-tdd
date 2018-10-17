@@ -71,3 +71,10 @@ private:
     ITime& m_time;
     Duration m_duration;
 };
+
+TEST(Timer, StartNoCheck)
+{
+    FakeTime time;
+    Timer timer(time, seconds(0));
+    timer.Start();
+}
