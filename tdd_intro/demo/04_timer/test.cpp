@@ -13,6 +13,10 @@ Timer can be started again any time, no metter in what state it is
  * Timer gets interface ITime with such functionality:
  *   get current time point
  * Timer gets desired duration and compares it with current time from ITime
+ *
+ * Desired behavior:
+ * IsExpired returns true if is not started
+ * Timeleft returns 0 if is not started or expired
 */
 
 #include <gtest/gtest.h>
