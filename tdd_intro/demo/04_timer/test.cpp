@@ -60,21 +60,28 @@ class Timer: public ITimer
 {
 public:
     Timer(ITime& time, Duration duration)
-        : m_time(time), m_duration(duration)
+        : m_time(time), m_duration(duration), m_started(false)
     { }
 
     virtual void Start() override
-    { }
+    { m_started = true; }
 
     virtual bool IsExpired() const override
     { return m_duration == seconds(0); }
 
     virtual Duration TimeLeft() const override
-    { return { }; }
+    {
+        if (m_started)
+        {
+            return m_duration;
+        }
+        return seconds(0);
+    }
 
 private:
     ITime& m_time;
     Duration m_duration;
+    bool m_started;
 };
 
 class FakeTime: public ITime
