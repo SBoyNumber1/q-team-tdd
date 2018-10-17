@@ -90,7 +90,12 @@ private:
 class FakeTime: public ITime
 {
 public:
-    virtual TimePoint GetCurrent() { return { }; }
+    virtual TimePoint GetCurrent() { return m_current; }
+
+    void Wait(Duration duration) { m_current += duration; }
+
+private:
+    TimePoint m_current;
 };
 
 TEST(Timer, StartNoCheck)
