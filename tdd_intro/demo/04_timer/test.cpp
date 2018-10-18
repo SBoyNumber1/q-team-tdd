@@ -75,19 +75,24 @@ public:
 
     virtual bool IsExpired() const override
     {
-        auto timeElapsed = (m_time.GetCurrent() - m_startTime);
-        return timeElapsed >= m_duration;
+        return TimeElapsed() >= m_duration;
     }
 
     virtual Duration TimeLeft() const override
     {
+        if (m_started && !IsExpired())
+        {
+            return m_duration - TimeElapsed();
+        }
+        return s_zeroDuration;
+    }
+
+private:
+    Duration TimeElapsed() const
+    {
         if (m_started)
         {
-            auto timeElapsed = (m_time.GetCurrent() - m_startTime);
-            if (timeElapsed < m_duration)
-            {
-                return m_duration - timeElapsed;
-            }
+            return m_time.GetCurrent() - m_startTime;
         }
         return s_zeroDuration;
     }
