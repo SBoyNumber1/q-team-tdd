@@ -5,5 +5,4 @@ SUBDIRS += \
     01_fizz_buzz \
     02_anagram \
     03_roman_numerals \
-    04_timer \
-    05_word_wrapp
+    04_timer
