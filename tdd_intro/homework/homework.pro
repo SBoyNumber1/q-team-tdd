@@ -6,4 +6,5 @@ SUBDIRS += \
     03_bank_ocr \
     04_weather_client \
     05_word_wrapp \
-    06_coffee
+    06_coffee \
+    07_sqlite_header_parser
