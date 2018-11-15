@@ -39,3 +39,75 @@ Implement chat application, that communicates via TCP sockets.
 */
 
 #include "mocks.h"
+using namespace ::testing;
+
+bool TryToBind(ISocketWrapper& socket)
+{
+    try
+    {
+         socket.Bind("", 0);
+    }
+    catch (const std::exception& ex)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void EstablishConnection(ISocketWrapper& socket)
+{
+    if (TryToBind(socket))
+    {
+        socket.Listen();
+        socket.Accept();
+    }
+    else
+    {
+        socket.Connect("", 0);
+    }
+}
+
+TEST(Chat, StartAsServer)
+{
+    StrictMock<SocketWrapperMock> socketMock;
+    EXPECT_CALL(socketMock, Bind(_, _));
+    ASSERT_TRUE(TryToBind(socketMock));
+}
+
+TEST(Chat, StartAsClient)
+{
+    StrictMock<SocketWrapperMock> socketMock;
+    EXPECT_CALL(socketMock, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
+    ASSERT_FALSE(TryToBind(socketMock));
+}
+
+TEST(Chat, StartConnection)
+{
+    StrictMock<SocketWrapperMock> socketMock;
+    EXPECT_CALL(socketMock, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
+    EXPECT_CALL(socketMock, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
+    EstablishConnection(socketMock);
+}
+
+TEST(Chat, AcceptAfterListen)
+{
+    StrictMock<SocketWrapperMock> listener;
+    StrictMock<SocketWrapperMock> client;
+    EXPECT_CALL(listener, Bind(_, _)); // TODO: Order matters !!!
+    EXPECT_CALL(listener, Listen());
+    EXPECT_CALL(client, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
+    EXPECT_CALL(client, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
+    EXPECT_CALL(listener, Accept()).WillOnce(Return(ISocketWrapperPtr()));
+
+    EstablishConnection(listener);
+    EstablishConnection(client);
+}
+
+TEST(Chat, ServerReturnsClientSocket)
+{
+    StrictMock<SocketWrapperMock> listener;
+    ASSERT_NE(nullptr, EstablishConnection(listener));
+}
+
+
