@@ -55,17 +55,28 @@ bool TryToBind(ISocketWrapper& socket)
     return true;
 }
 
-void EstablishConnection(ISocketWrapper& socket)
+ISocketWrapperPtr EstablishConnection(ISocketWrapper& socket)
 {
     if (TryToBind(socket))
     {
         socket.Listen();
-        socket.Accept();
+        return socket.Accept();
     }
     else
     {
-        socket.Connect("", 0);
+        return socket.Connect("", 0);
     }
+}
+
+void WriteToSocket(ISocketWrapper& socket, std::string data)
+{
+    data.push_back('\0');
+    socket.Write(data);
+}
+
+void ReadFromSocket(ISocketWrapper& socket, std::string& data)
+{
+    socket.Read(data);
 }
 
 TEST(Chat, StartAsServer)
@@ -94,20 +105,69 @@ TEST(Chat, AcceptAfterListen)
 {
     StrictMock<SocketWrapperMock> listener;
     StrictMock<SocketWrapperMock> client;
-    EXPECT_CALL(listener, Bind(_, _)); // TODO: Order matters !!!
+    InSequence sequence;
+    EXPECT_CALL(listener, Bind(_, _));
     EXPECT_CALL(listener, Listen());
+    EXPECT_CALL(listener, Accept()).WillOnce(Return(ISocketWrapperPtr()));
     EXPECT_CALL(client, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
     EXPECT_CALL(client, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
-    EXPECT_CALL(listener, Accept()).WillOnce(Return(ISocketWrapperPtr()));
 
     EstablishConnection(listener);
     EstablishConnection(client);
 }
 
-TEST(Chat, ServerReturnsClientSocket)
+TEST(Chat, ReturnsClientSocket)
 {
-    StrictMock<SocketWrapperMock> listener;
+    SocketWrapperMock listener;
+    EXPECT_CALL(listener, Accept()).WillOnce(Return(std::make_shared<SocketWrapperMock>()));
     ASSERT_NE(nullptr, EstablishConnection(listener));
 }
 
+TEST(Chat, ReturnsServerSocket)
+{
+    SocketWrapperMock server;
+    EXPECT_CALL(server, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
+    EXPECT_CALL(server, Connect(_, _)).WillOnce(Return(std::make_shared<SocketWrapperMock>()));
+    ASSERT_NE(nullptr, EstablishConnection(server));
+}
 
+TEST(Chat, WriteSomethingToSocket)
+{
+    SocketWrapperMock server;
+    EXPECT_CALL(server, Write(_)).Times(1);
+    WriteToSocket(server,"Hello");
+}
+
+TEST(Chat, WriteDataToSocket)
+{
+    std::string expected("Hello", sizeof("Hello"));
+
+    SocketWrapperMock server;
+    EXPECT_CALL(server, Write(expected)).Times(1);
+    WriteToSocket(server,"Hello");
+}
+
+TEST(Chat, ReadSomethingFromSocket)
+{
+    SocketWrapperMock server;
+    std::string data;
+    EXPECT_CALL(server, Read(data)).Times(1);
+    ReadFromSocket(server, data);
+}
+
+TEST(Chat, ReadDataFromSocket)
+{
+    SocketWrapperMock server;
+    std::string data;
+    EXPECT_CALL(server, Read(data)).WillOnce(::SetArgReferee<0>("Hello"));
+    ReadFromSocket(server, data);
+    ASSERT_EQ("Hello", data);
+}
+
+TEST(Chat, ClientHandshakeStart)
+{
+    SocketWrapperMock socket;
+    std::string nickname = "client";
+    EXPECT_CALL(socket, Write("client:HELLO!")).Times(1);
+    ClientHandshake(socket, nickname);
+}
