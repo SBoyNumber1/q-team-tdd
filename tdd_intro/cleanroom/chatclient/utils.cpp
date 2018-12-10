@@ -32,15 +32,17 @@ bool utils::TryToBind(ISocketWrapper& socket)
     return true;
 }
 
-ISocketWrapperPtr utils::EstablishConnection(ISocketWrapper& socket)
+ISocketWrapperPtr utils::EstablishConnection(ISocketWrapper& socket, bool& isServer)
 {
     if (TryToBind(socket))
     {
         socket.Listen();
+        isServer = true;
         return socket.Accept();
     }
     else
     {
+        isServer = false;
         return socket.Connect("", 0);
     }
 }
@@ -67,4 +69,19 @@ std::string utils::ServerHandshake(ISocketWrapper& socket, const std::string& ni
     std::string clientNickname = ReadAndValidateHandshake(socket);
     socket.Write(nickname + ":HELLO!");
     return clientNickname;
+}
+
+void utils::WriteFromGuiToSocket(IGui& gui, ISocketWrapper& socket)
+{
+    std::string data = gui.Read();
+    socket.Write(data);
+}
+
+void utils::WriteFromSocketToGui(
+    IGui& gui, ISocketWrapper& socket, const std::string& name)
+{
+    std::string data;
+    socket.Read(data);
+    std::string message = name + ": " + data;
+    gui.Write(message);
 }

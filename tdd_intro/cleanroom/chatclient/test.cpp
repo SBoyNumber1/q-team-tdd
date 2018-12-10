@@ -64,7 +64,8 @@ TEST(Chat, StartConnection)
     StrictMock<SocketWrapperMock> socketMock;
     EXPECT_CALL(socketMock, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
     EXPECT_CALL(socketMock, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
-    utils::EstablishConnection(socketMock);
+    bool isServer = false;
+    utils::EstablishConnection(socketMock, isServer);
 }
 
 TEST(Chat, AcceptAfterListen)
@@ -78,15 +79,19 @@ TEST(Chat, AcceptAfterListen)
     EXPECT_CALL(client, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
     EXPECT_CALL(client, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
 
-    utils::EstablishConnection(listener);
-    utils::EstablishConnection(client);
+    bool isServer = false;
+    utils::EstablishConnection(listener, isServer);
+    ASSERT_TRUE(isServer);
+    utils::EstablishConnection(client, isServer);
+    ASSERT_FALSE(isServer);
 }
 
 TEST(Chat, ReturnsClientSocket)
 {
     SocketWrapperMock listener;
     EXPECT_CALL(listener, Accept()).WillOnce(Return(std::make_shared<SocketWrapperMock>()));
-    ASSERT_NE(nullptr, utils::EstablishConnection(listener));
+    bool isServer = false;
+    ASSERT_NE(nullptr, utils::EstablishConnection(listener, isServer));
 }
 
 TEST(Chat, ReturnsServerSocket)
@@ -94,7 +99,8 @@ TEST(Chat, ReturnsServerSocket)
     SocketWrapperMock server;
     EXPECT_CALL(server, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
     EXPECT_CALL(server, Connect(_, _)).WillOnce(Return(std::make_shared<SocketWrapperMock>()));
-    ASSERT_NE(nullptr, utils::EstablishConnection(server));
+    bool isServer = false;
+    ASSERT_NE(nullptr, utils::EstablishConnection(server, isServer));
 }
 
 TEST(Chat, WriteSomethingToSocket)
@@ -185,20 +191,50 @@ TEST(Chat, ServerInvalidHandshakeAnswer)
     EXPECT_ANY_THROW(utils::ServerHandshake(socket, nickname));
 }
 
-TEST(Chat, GetCompanionNickname)
+TEST(Chat, ClientEstablishesConnection)
 {
     SocketWrapperMock socket;
+    std::shared_ptr<SocketWrapperMock> companion(new SocketWrapperMock());
     std::string nickname = "Bob";
+    EXPECT_CALL(socket, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
+    EXPECT_CALL(socket, Connect(_, _)).WillOnce(Return(companion));
+    EXPECT_CALL(*companion, Read(_)).WillOnce(::SetArgReferee<0>("Alice:HELLO!"));
     Connector client(socket, nickname);
     EXPECT_EQ(client.GetCompanionNickname(), "Alice");
 }
 
-TEST(Chat, ClientEstablishesConnection)
+TEST(Chat, ServerEstablishesConnection)
+{
+
+    SocketWrapperMock socket;
+    std::shared_ptr<SocketWrapperMock> companion(new SocketWrapperMock());
+    std::string nickname = "Bob";
+
+   // InSequence seq; TO DO fix leak
+    EXPECT_CALL(socket, Accept()).WillOnce(Return(companion));
+    EXPECT_CALL(*companion, Read(_)).WillOnce(::SetArgReferee<0>("Alice:HELLO!"));
+    EXPECT_CALL(*companion, Write("Bob:HELLO!"));
+    Connector client(socket, nickname);
+    EXPECT_EQ(client.GetCompanionNickname(), "Alice");
+}
+
+TEST(Chat, SendMessage)
 {
     SocketWrapperMock socket;
-    std::string nickname = "Bob";
-    Connector client(socket, nickname);
-    EXPECT_CALL(socket, Bind(_, _)).WillOnce(Throw(std::runtime_error("")));
-    EXPECT_CALL(socket, Connect(_, _)).WillOnce(Return(ISocketWrapperPtr()));
-    EXPECT_EQ(client.GetCompanionNickname(), "Alice");
+    GuiMock gui;
+    EXPECT_CALL(gui, Read()).WillOnce(Return("some info"));
+    EXPECT_CALL(socket, Write("some info"));
+
+    utils::WriteFromGuiToSocket(gui, socket);
+}
+
+TEST(Chat, ReceiveMessage)
+{
+    SocketWrapperMock socket;
+    GuiMock gui;
+    std::string name = "Alice";
+    EXPECT_CALL(socket, Read(_)).WillOnce(::SetArgReferee<0>("Info"));
+    EXPECT_CALL(gui, Write("Alice: Info"));
+
+    utils::WriteFromSocketToGui(gui, socket, name);
 }
