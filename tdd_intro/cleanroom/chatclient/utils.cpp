@@ -5,7 +5,7 @@ namespace
     std::string ReadAndValidateHandshake(ISocketWrapper& socket)
     {
         std::string data;
-        ReadFromSocket(socket, data);
+        utils::ReadFromSocket(socket, data);
 
         auto separator = data.find(':');
         std::string serverMagic = data.substr(separator);
