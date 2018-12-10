@@ -8,7 +8,9 @@ CONFIG -= qt
 SOURCES += \
     test.cpp \
     socketwrapper.cpp \
-    socketwrappertest.cpp
+    socketwrappertest.cpp \
+    utils.cpp \
+    connector.cpp
 
 LIBS += \
     Ws2_32.lib \
@@ -19,4 +21,6 @@ HEADERS += \
     socketwrapper.h \
     mocks.h \
     isocketwrapper.h \
-    igui.h
+    igui.h \
+    utils.h \
+    connector.h
