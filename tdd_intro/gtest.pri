@@ -1,6 +1,6 @@
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../3rd_party/gtest/release/ -lgtest
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../3rd_party/gtest/debug/ -lgtest
-else:unix:!macx: LIBS += -L$$OUT_PWD/../../3rd_party/gtest/ -lgtest
+else:unix:!macx: LIBS += -L$$OUT_PWD/../../3rd_party/gtest/ -lgtest -pthread
 
 INCLUDEPATH += $$PWD/3rd_party/gtest/googletest/include
 DEPENDPATH += $$PWD/3rd_party/gtest/googletest/include
