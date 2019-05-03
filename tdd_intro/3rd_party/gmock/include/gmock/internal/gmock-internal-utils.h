@@ -46,6 +46,13 @@
 #include "gmock/internal/gmock-port.h"
 #include "gtest/gtest.h"
 
+namespace {
+
+const testing::internal::RelationToSourceCopy kCopy;
+const testing::internal::RelationToSourceReference kReference;
+
+}
+
 namespace testing {
 namespace internal {
 

@@ -47,19 +47,6 @@ IMPORTANT:
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-struct Weather
-{
-    short temperature = 0;
-    unsigned short windDirection = 0;
-    double windSpeed = 0;
-    bool operator==(const Weather& right)
-    {
-        return temperature == right.temperature &&
-               windDirection == right.windDirection &&
-               std::abs(windSpeed - right.windSpeed) < 0.01;
-    }
-};
-
 class IWeatherServer
 {
 public:

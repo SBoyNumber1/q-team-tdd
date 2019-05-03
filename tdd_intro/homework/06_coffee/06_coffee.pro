@@ -1,3 +1,4 @@
+include(../../gtest.pri)
 include(../../gmock.pri)
 
 TEMPLATE = app
