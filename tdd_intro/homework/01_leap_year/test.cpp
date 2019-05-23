@@ -38,3 +38,8 @@ TEST(LeapYear, divisible_by_4_and_100)
 {
     EXPECT_FALSE(is_leap_year(900));
 }
+
+TEST(LeapYear, divisible_by_400)
+{
+    EXPECT_TRUE(is_leap_year(2000));
+}
