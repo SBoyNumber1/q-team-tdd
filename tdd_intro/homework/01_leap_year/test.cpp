@@ -16,17 +16,19 @@ If your language provides a method in the standard library that does this look-u
 
 bool is_leap_year(int year)
 {
+    bool return_value = false;
+
     if (year % 400 == 0)
     {
-        return true;
+        return_value = true;
     }
 
-    if (year % 4 == 0 && year % 100 != 0)
+    else if (year % 4 == 0 && year % 100 != 0)
     {
-        return true;
+        return_value = true;
     }
 
-    return false;
+    return return_value;
 }
 
 TEST(LeapYear, divisible_by_4)
