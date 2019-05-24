@@ -30,3 +30,11 @@ TEST(LeapYearTestCase,  DivisibleByFour)
     EXPECT_TRUE(isLeapYear(1992));
     EXPECT_TRUE(isLeapYear(1996));
 }
+
+
+TEST(LeapYearTestCase,  DivisibleByHundred)
+{
+    EXPECT_FALSE(isLeapYear(100));
+    EXPECT_FALSE(isLeapYear(1900));
+    EXPECT_FALSE(isLeapYear(-1400));
+}
