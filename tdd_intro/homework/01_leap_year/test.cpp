@@ -22,17 +22,7 @@ bool isLeapYear(int year)
         throw std::invalid_argument("Year can't be 0");
     }
 
-    if (year % 400 == 0)
-    {
-        return true;
-    }
-
-    if (year % 100 == 0)
-    {
-        return false;
-    }
-
-    if (year % 4 == 0)
+    if (0 == year % 400 || (0 != year % 100 && 0 == year % 4))
     {
         return true;
     }
