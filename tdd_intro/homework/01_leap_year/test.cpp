@@ -13,9 +13,15 @@ If your language provides a method in the standard library that does this look-u
 */
 
 #include <gtest/gtest.h>
+#include <exception>
 
 bool isLeapYear(int year)
 {
+    if (0 == year)
+    {
+        throw std::invalid_argument("Year can't be 0");
+    }
+
     if (year % 400 == 0)
     {
         return true;
