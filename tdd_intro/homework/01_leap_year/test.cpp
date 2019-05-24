@@ -13,3 +13,16 @@ If your language provides a method in the standard library that does this look-u
 */
 
 #include <gtest/gtest.h>
+
+bool isLeapYear(int)
+{
+    return false;
+}
+
+TEST(LeapYearTestCase,  DivisibleByFour)
+{
+    EXPECT_TRUE(isLeapYear(4));
+    EXPECT_TRUE(isLeapYear(1024));
+    EXPECT_TRUE(isLeapYear(1992));
+    EXPECT_TRUE(isLeapYear(1996));
+}
