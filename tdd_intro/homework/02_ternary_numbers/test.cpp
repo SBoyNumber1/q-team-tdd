@@ -40,6 +40,11 @@ bool can_be_ternary(const std::string& input)
 
 int convert_to_ternary(const std::string& input)
 {
+    if (!can_be_ternary(input))
+    {
+        return 0;
+    }
+
     return 1;
 }
 
