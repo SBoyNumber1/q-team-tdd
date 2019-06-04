@@ -19,7 +19,7 @@ If your language provides a method in the standard library to perform the conver
 
 bool can_be_ternary(const std::string& input)
 {
-    return true;
+    return false;
 }
 
 TEST(TernaryNumbers, EmptyCantBeTernary)
