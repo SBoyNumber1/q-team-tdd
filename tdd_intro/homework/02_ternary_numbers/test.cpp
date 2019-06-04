@@ -67,3 +67,8 @@ TEST(TernaryNumbers, InvalidTernary)
     EXPECT_EQ(0, convert_to_ternary("125"));
 }
 
+TEST(TernaryNumbers, ValidTernary)
+{
+    EXPECT_EQ(302, convert_to_ternary("102012"));
+}
+
