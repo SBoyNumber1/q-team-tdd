@@ -26,3 +26,13 @@ TEST(TernaryNumbers, EmptyCantBeTernary)
 {
     EXPECT_FALSE(can_be_ternary(""));
 }
+
+TEST(TernaryNumbers, OnlyZeroOneTwoCanBeTernary)
+{
+    ASSERT_FALSE(can_be_ternary("5"));
+    ASSERT_TRUE(can_be_ternary("0"));
+    ASSERT_TRUE(can_be_ternary("1"));
+    EXPECT_TRUE(can_be_ternary("2"));
+
+}
+
