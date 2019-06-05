@@ -45,7 +45,16 @@ int convert_to_ternary(const std::string& input)
         return 0;
     }
 
-    return 1;
+    int indexes = input.size() - 1;
+    int ternary = 0;
+
+    for (uint i = 0; i < input.size(); i++)
+    {
+        ternary += std::stoi(input.substr(i, 1)) * pow(3, indexes);
+        indexes--;
+    }
+
+    return ternary;
 }
 
 
