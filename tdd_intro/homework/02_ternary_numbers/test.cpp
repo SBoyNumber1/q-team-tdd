@@ -16,3 +16,68 @@ The last place in a ternary number is the 1's place. The second to last is the 3
 
 If your language provides a method in the standard library to perform the conversion, pretend it doesn't exist and implement it yourself.
 */
+
+bool can_be_ternary(const std::string& input)
+{
+    bool result = true;
+
+    if (input.empty())
+    {
+         result = false;
+         return result;
+    }
+
+    for (auto it = input.cbegin(); it != input.cend(); it++)
+    {
+        if (*it != '0' && *it != '1' && *it != '2')
+        {
+            result = false;
+        }
+    }
+
+    return result;
+}
+
+int convert_to_ternary(const std::string& input)
+{
+    if (!can_be_ternary(input))
+    {
+        return 0;
+    }
+
+    int indexes = input.size() - 1;
+    int ternary = 0;
+
+    for (uint i = 0; i < input.size(); i++)
+    {
+        ternary += std::stoi(input.substr(i, 1)) * pow(3, indexes);
+        indexes--;
+    }
+
+    return ternary;
+}
+
+
+TEST(TernaryNumbers, EmptyCantBeTernary)
+{
+    EXPECT_FALSE(can_be_ternary(""));
+}
+
+TEST(TernaryNumbers, OnlyZeroOneTwoCanBeTernary)
+{
+    ASSERT_FALSE(can_be_ternary("5"));
+    ASSERT_TRUE(can_be_ternary("0"));
+    ASSERT_TRUE(can_be_ternary("1"));
+    EXPECT_TRUE(can_be_ternary("2"));
+}
+
+TEST(TernaryNumbers, InvalidTernary)
+{
+    EXPECT_EQ(0, convert_to_ternary("125"));
+}
+
+TEST(TernaryNumbers, ValidTernary)
+{
+    EXPECT_EQ(302, convert_to_ternary("102012"));
+}
+
