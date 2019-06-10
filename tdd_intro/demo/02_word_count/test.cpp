@@ -55,5 +55,12 @@ TEST(CountWordTestCase, SpaceIsSeparator) {
 TEST(CountWordTestCase, SplitOneWord) {
     auto actual_result = split("olly", util::is_separator);
     ASSERT_EQ(actual_result.size(), 1);
-    ASSERT_EQ(actual_result.front(), "olly");
+    EXPECT_EQ(actual_result.front(), "olly");
+}
+
+TEST(CountWordTestCase, SplitWordsWithSpaces) {
+    auto actual_result = split(" olly  olly   ", util::is_separator);
+    ASSERT_EQ(actual_result.size(), 2);
+    EXPECT_EQ(actual_result.front(), "olly");
+    EXPECT_EQ(actual_result.back(), "olly");
 }
