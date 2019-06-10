@@ -17,9 +17,9 @@ such: 1
 #include <string>
 #include <map>
 
-std::map<std::string, int> count_words(const std::string& input)
+std::map<std::string, int> count_words(const std::string& /*input*/)
 {
-    return std::map<std::string, int> {{"123", 123}};
+    return {};
 }
 
 TEST(WordCount, idk)
