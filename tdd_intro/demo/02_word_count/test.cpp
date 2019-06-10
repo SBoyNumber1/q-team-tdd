@@ -50,3 +50,10 @@ TEST(WordCount, one_word)
     std::map<std::string, int> expected = {{"one", 1}};
     EXPECT_EQ(expected, count_words("one"));
 }
+
+TEST(WordCount, with_whitespace)
+{
+    std::map<std::string, int> expected = {{"one", 1}};
+    EXPECT_EQ(expected, count_words("one "));
+}
+
