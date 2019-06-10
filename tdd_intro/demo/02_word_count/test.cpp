@@ -26,13 +26,17 @@ such: 1
   - ExampleTest
   - SplitWordsWithPunctuation
   - SplitWordsWithSpaces
-  - SplitOneWord
 
 */
 
 auto is_separator = [](char c) {
     return std::ispunct(c) || std::isspace(c);
 };
+
+template <typename UnaryPredicate>
+std::vector<std::string_view> split(std::string_view, UnaryPredicate) {
+    return {};
+}
 
 TEST(CountWordTestCase, IsSeparator) {
     ASSERT_TRUE(is_separator(','));
@@ -44,4 +48,10 @@ TEST(CountWordTestCase, IsNotSeparator) {
 
 TEST(CountWordTestCase, SpaceIsSeparator) {
     ASSERT_TRUE(is_separator(' '));
+}
+
+TEST(CountWordTestCase, SplitOneWord) {
+    auto actual_result = split("olly", is_separator);
+    ASSERT_EQ(actual_result.size(), 1);
+    ASSERT_EQ(actual_result.front(), "olly");
 }
