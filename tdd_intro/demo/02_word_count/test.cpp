@@ -41,3 +41,7 @@ TEST(CountWordTestCase, IsSeparator) {
 TEST(CountWordTestCase, IsNotSeparator) {
     ASSERT_FALSE(is_separator('f'));
 }
+
+TEST(CountWordTestCase, SpaceIsSeparator) {
+    ASSERT_TRUE(is_separator(' '));
+}
