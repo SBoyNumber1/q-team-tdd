@@ -31,7 +31,7 @@ such: 1
 */
 
 auto is_separator = [](char c) {
-    return std::ispunct(c);
+    return std::ispunct(c) || std::isspace(c);
 };
 
 TEST(CountWordTestCase, IsSeparator) {
