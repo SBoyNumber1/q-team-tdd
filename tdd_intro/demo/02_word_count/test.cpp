@@ -37,3 +37,7 @@ auto is_separator = [](char) {
 TEST(CountWordTestCase, IsSeparator) {
     ASSERT_TRUE(is_separator(','));
 }
+
+TEST(CountWordTestCase, IsNotSeparator) {
+    ASSERT_FALSE(is_separator('f'));
+}
