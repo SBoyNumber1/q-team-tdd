@@ -30,8 +30,8 @@ such: 1
 
 */
 
-auto is_separator = [](char) {
-    return true;
+auto is_separator = [](char c) {
+    return std::ispunct(c);
 };
 
 TEST(CountWordTestCase, IsSeparator) {
