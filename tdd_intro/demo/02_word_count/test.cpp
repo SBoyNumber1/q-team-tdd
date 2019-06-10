@@ -17,3 +17,12 @@ such: 1
 #include <string>
 #include <map>
 
+std::map<std::string, int> count_words(const std::string& input)
+{
+    return std::map<std::string, int> {{"123", 123}};
+}
+
+TEST(WordCount, idk)
+{
+    EXPECT_TRUE(count_words("").empty());
+}
