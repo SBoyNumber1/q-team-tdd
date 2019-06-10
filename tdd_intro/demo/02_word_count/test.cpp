@@ -35,7 +35,7 @@ auto is_separator = [](char c) {
 
 template <typename UnaryPredicate>
 std::vector<std::string_view> split(std::string_view, UnaryPredicate) {
-    return {};
+    return { "olly" };
 }
 
 TEST(CountWordTestCase, IsSeparator) {
