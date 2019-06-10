@@ -17,3 +17,23 @@ such: 1
 #include <string>
 #include <map>
 
+/*
+
+  Tests list:
+  - HasOneWord
+  - HasTwoDifferentWords
+  - HasTwoSameWords
+  - ExampleTest
+  - SplitWordsWithPunctuation
+  - SplitWordsWithSpaces
+  - SplitOneWord
+
+*/
+
+auto is_separator = [](char) {
+    return false;
+};
+
+TEST(CountWordTestCase, IsSeparator) {
+    ASSERT_TRUE(is_separator(','));
+}
