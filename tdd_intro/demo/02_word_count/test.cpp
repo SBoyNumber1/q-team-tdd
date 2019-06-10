@@ -31,7 +31,7 @@ such: 1
 */
 
 auto is_separator = [](char) {
-    return false;
+    return true;
 };
 
 TEST(CountWordTestCase, IsSeparator) {
