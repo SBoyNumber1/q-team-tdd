@@ -25,14 +25,19 @@ such: 1
  * With punctual symbols:
  * With whitespaces:
  * With whitespaces and pubctual:
- * One word:
+ * One word: done
  * One word twice:
  *
  */
 
 std::map<std::string, int> count_words(const std::string& input)
 {
-    return {};
+    if (input.empty())
+    {
+	return {};
+    }
+
+    return {{input, 1}};
 }
 
 TEST(WordCount, empty_string)
