@@ -20,12 +20,9 @@ such: 1
 /*
 
   Tests list:
-  - HasOneWord
   - HasTwoDifferentWords
   - HasTwoSameWords
   - ExampleTest
-  - SplitWordsWithPunctuation
-  - SplitWordsWithSpaces
 
 */
 
@@ -110,4 +107,11 @@ TEST(CountWordTestCase, HasOneWord) {
     auto actual_result = util::count_words("olly", util::is_separator);
     ASSERT_EQ(actual_result.size(), 1);
     EXPECT_EQ(actual_result.at("olly"), 1);
+}
+
+TEST(CountWordTestCase, HasTwoDifferentWords) {
+    auto actual_result = util::count_words("olly, kolly", util::is_separator);
+    ASSERT_EQ(actual_result.size(), 2);
+    EXPECT_EQ(actual_result.at("olly"), 1);
+    EXPECT_EQ(actual_result.at("kolly"), 1);
 }
