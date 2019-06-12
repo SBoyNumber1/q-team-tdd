@@ -17,15 +17,6 @@ such: 1
 #include <string>
 #include <map>
 
-/*
-
-  Tests list:
-  - HasTwoDifferentWords
-  - HasTwoSameWords
-  - ExampleTest
-
-*/
-
 namespace util {
     auto is_separator = [](char c) {
         return std::ispunct(c) || std::isspace(c);
@@ -51,7 +42,7 @@ namespace util {
                     current_state = ReadingSeparator;
                 }
 
-                if (str.size() - 1 == i && 0 != word_start) {
+                if (str.size() - 1 == i) {
                     result.push_back(str.substr(word_start, str.size()));
                 }
 
@@ -68,11 +59,14 @@ namespace util {
         return result;
     }
 
-     template <typename UnaryPredicate>
+    template <typename UnaryPredicate>
     std::map<std::string_view, std::size_t> count_words(std::string_view str, UnaryPredicate separator_predicate) {
-        auto result = std::map<std::string_view, std::size_t> {
-            { "olly", 1 }
-        };
+        std::map<std::string_view, std::size_t> result {};
+
+        auto words = util::split(str, separator_predicate);
+        for (auto&& word : words) {
+            ++result[word];
+        }
 
         return result;
     }
@@ -114,4 +108,24 @@ TEST(CountWordTestCase, HasTwoDifferentWords) {
     ASSERT_EQ(actual_result.size(), 2);
     EXPECT_EQ(actual_result.at("olly"), 1);
     EXPECT_EQ(actual_result.at("kolly"), 1);
+}
+
+TEST(CountWordTestCase, HasTwoSameWords) {
+    auto actual_result = util::count_words("olly, olly", util::is_separator);
+    ASSERT_EQ(actual_result.size(), 1);
+    EXPECT_EQ(actual_result.at("olly"), 2);
+}
+
+TEST(CountWordTestCase, ExampleTest) {
+    auto actual_result = util::count_words("olly olly in come free please please let it be in such manner olly", util::is_separator);
+    ASSERT_EQ(actual_result.size(), 10);
+    EXPECT_EQ(actual_result.at("olly"), 3);
+    EXPECT_EQ(actual_result.at("come"), 1);
+    EXPECT_EQ(actual_result.at("free"), 1);
+    EXPECT_EQ(actual_result.at("please"), 2);
+    EXPECT_EQ(actual_result.at("let"), 1);
+    EXPECT_EQ(actual_result.at("it"), 1);
+    EXPECT_EQ(actual_result.at("be"), 1);
+    EXPECT_EQ(actual_result.at("manner"), 1);
+    EXPECT_EQ(actual_result.at("such"), 1);
 }
