@@ -34,9 +34,41 @@ namespace util {
         return std::ispunct(c) || std::isspace(c);
     };
 
+    // TODO: Refactor using state pattern
     template <typename UnaryPredicate>
-    std::vector<std::string_view> split(std::string_view, UnaryPredicate) {
-        return { "olly" };
+    std::vector<std::string_view> split(std::string_view str, UnaryPredicate separator_predicate) {
+        enum State {
+            ReadingSeparator,
+            ReadingWord
+        } current_state = ReadingSeparator;
+
+        // State machine context
+        std::vector<std::string_view> result;
+        std::size_t word_start = 0;
+
+        for (std::size_t i = 0; i < str.size(); ++i) {
+            switch (current_state) {
+            case ReadingWord:
+                if (separator_predicate(str[i])){
+                    result.push_back(str.substr(word_start, i - word_start));
+                    current_state = ReadingSeparator;
+                }
+
+                if (str.size() - 1 == i && 0 != word_start) {
+                    result.push_back(str.substr(word_start, str.size()));
+                }
+
+                break;
+            case ReadingSeparator:
+                if (!separator_predicate(str[i])){
+                    word_start = i;
+                    current_state = ReadingWord;
+                }
+                break;
+            }
+        }
+
+        return result;
     }
 }
 
@@ -53,13 +85,13 @@ TEST(CountWordTestCase, SpaceIsSeparator) {
 }
 
 TEST(CountWordTestCase, SplitOneWord) {
-    auto actual_result = split("olly", util::is_separator);
+    auto actual_result = util::split(" olly", util::is_separator);
     ASSERT_EQ(actual_result.size(), 1);
     EXPECT_EQ(actual_result.front(), "olly");
 }
 
 TEST(CountWordTestCase, SplitWordsWithSpaces) {
-    auto actual_result = split(" olly  olly   ", util::is_separator);
+    auto actual_result = util::split(" olly  olly   ", util::is_separator);
     ASSERT_EQ(actual_result.size(), 2);
     EXPECT_EQ(actual_result.front(), "olly");
     EXPECT_EQ(actual_result.back(), "olly");
