@@ -70,6 +70,11 @@ namespace util {
 
         return result;
     }
+
+     template <typename UnaryPredicate>
+    std::map<std::string_view, std::size_t> count_words(std::string_view str, UnaryPredicate separator_predicate) {
+
+    }
 }
 
 TEST(CountWordTestCase, IsSeparator) {
@@ -95,4 +100,10 @@ TEST(CountWordTestCase, SplitWordsWithSeparators) {
     ASSERT_EQ(actual_result.size(), 2);
     EXPECT_EQ(actual_result.front(), "olly");
     EXPECT_EQ(actual_result.back(), "olly");
+}
+
+TEST(CountWordTestCase, HasOneWord) {
+    auto actual_result = util::count_words("olly", util::is_separator);
+    ASSERT_EQ(actual_result.size(), 1);
+    EXPECT_EQ(actual_result.at("olly"), 1);
 }
