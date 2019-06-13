@@ -27,7 +27,7 @@ such: 1
  * With whitespaces and pubctual:
  * One word:                      done
  * One word twice:
- *
+ * Two different words;           done
  */
 
 std::map<std::string, int> count_words(const std::string& input)
@@ -37,15 +37,25 @@ std::map<std::string, int> count_words(const std::string& input)
 	return {};
     }
 
-    auto pos_of_whitespace = input.find_first_of(" .,?!;");
+    std::map<std::string, int> result;
+    size_t first_index = 0;
+    size_t pos_of_whitespace = 0;
 
-    if (pos_of_whitespace == std::string::npos)
+    for (;;)
     {
-        return {{input, 1}};
-    }
-    std::string result_string(input.begin(), input.begin() + pos_of_whitespace);
+        pos_of_whitespace = input.find_first_of(" .,?!;", first_index);
+        result.insert({input.substr(first_index, pos_of_whitespace), 1});
 
-    return {{result_string, 1}};
+        first_index = pos_of_whitespace + 1;
+
+        if (pos_of_whitespace == std::string::npos
+                || first_index >= input.size())
+        {
+            break;
+        }
+    }
+
+    return result;
 }
 
 TEST(WordCount, empty_string)
