@@ -107,3 +107,9 @@ TEST(WordCount, with_punctuals_on_the_start)
     std::map<std::string, int> expected = {{"one", 1}, {"two", 1}, {"three", 1}, {"four", 1}};
     EXPECT_EQ(expected, count_words(".?.!one.two three? four"));
 }
+
+TEST(WordCount, one_word_twice)
+{
+    std::map<std::string, int> expected = {{"one", 2}};
+    EXPECT_EQ(expected, count_words("one?one"));
+}
