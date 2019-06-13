@@ -23,7 +23,7 @@ such: 1
  *
  * Empty string: done
  * With punctual symbols:
- * With whitespaces:
+ * With whitespaces: done
  * With whitespaces and pubctual:
  * One word: done
  * One word twice:
@@ -65,3 +65,8 @@ TEST(WordCount, with_whitespace)
     EXPECT_EQ(expected, count_words("one "));
 }
 
+TEST(WordCount, with_punctual_symbols)
+{
+    std::map<std::string, int> expected = {{"one", 1}};
+    EXPECT_EQ(expected, count_words("one."));
+}
