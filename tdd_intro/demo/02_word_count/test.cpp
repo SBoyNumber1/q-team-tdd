@@ -21,11 +21,11 @@ such: 1
 /*
  * List of tests:
  *
- * Empty string: done
- * With punctual symbols:
- * With whitespaces: done
+ * Empty string:                  done
+ * With punctual symbols:         done
+ * With whitespaces:              done
  * With whitespaces and pubctual:
- * One word: done
+ * One word:                      done
  * One word twice:
  *
  */
@@ -37,7 +37,7 @@ std::map<std::string, int> count_words(const std::string& input)
 	return {};
     }
 
-    auto pos_of_whitespace = input.find_first_of(" ");
+    auto pos_of_whitespace = input.find_first_of(" .,?!;");
 
     if (pos_of_whitespace == std::string::npos)
     {
