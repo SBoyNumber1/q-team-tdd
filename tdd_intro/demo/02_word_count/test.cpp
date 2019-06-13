@@ -87,3 +87,10 @@ TEST(WordCount, two_different_words)
     EXPECT_EQ(expected, count_words("one.two"));
 
 }
+
+TEST(WordCount, with_whitespaces_and_punctual)
+{
+    std::map<std::string, int> expected = {{"one", 1}, {"two", 1}, {"three", 1}, {"four", 1}};
+    EXPECT_EQ(expected, count_words(" one.two three? four"));
+
+}
