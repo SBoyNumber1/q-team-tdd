@@ -25,7 +25,7 @@ such: 1
  * With punctual symbols:         done
  * With whitespaces:              done
  * With whitespaces and pubctual: done
- * With on start punctuals:
+ * With on start punctuals:       done
  * One word:                      done
  * One word twice:
  * Two different words;           done
@@ -100,4 +100,10 @@ TEST(WordCount, with_whitespaces_and_punctual)
 {
     std::map<std::string, int> expected = {{"one", 1}, {"two", 1}, {"three", 1}, {"four", 1}};
     EXPECT_EQ(expected, count_words(" one.two three? four"));
+}
+
+TEST(WordCount, with_punctuals_on_the_start)
+{
+    std::map<std::string, int> expected = {{"one", 1}, {"two", 1}, {"three", 1}, {"four", 1}};
+    EXPECT_EQ(expected, count_words(".?.!one.two three? four"));
 }
