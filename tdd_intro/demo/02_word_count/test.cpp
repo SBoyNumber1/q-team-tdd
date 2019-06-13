@@ -70,3 +70,10 @@ TEST(WordCount, with_punctual_symbols)
     std::map<std::string, int> expected = {{"one", 1}};
     EXPECT_EQ(expected, count_words("one."));
 }
+
+TEST(WordCount, two_different_words)
+{
+    std::map<std::string, int> expected = {{"one", 1}, {"two", 1}};
+    EXPECT_EQ(expected, count_words("one.two"));
+
+}
