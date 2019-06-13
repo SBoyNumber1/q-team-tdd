@@ -27,7 +27,7 @@ such: 1
  * With whitespaces and pubctual: done
  * With on start punctuals:       done
  * One word:                      done
- * One word twice:
+ * One word twice:                done
  * Two different words;           done
  */
 
@@ -52,6 +52,12 @@ std::map<std::string, int> count_words(const std::string& input)
         if (substr.size() == 0)
         {
             continue;
+        }
+
+        auto map_iter = result.find(substr);
+        if (map_iter != result.end())
+        {
+            map_iter->second += 1;
         }
 
         result.insert({substr, 1});
