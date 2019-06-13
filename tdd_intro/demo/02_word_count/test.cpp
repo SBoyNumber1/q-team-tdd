@@ -37,7 +37,15 @@ std::map<std::string, int> count_words(const std::string& input)
 	return {};
     }
 
-    return {{input, 1}};
+    auto pos_of_whitespace = input.find_first_of(" ");
+
+    if (pos_of_whitespace == std::string::npos)
+    {
+        return {{input, 1}};
+    }
+    std::string result_string(input.begin(), input.begin() + pos_of_whitespace);
+
+    return {{result_string, 1}};
 }
 
 TEST(WordCount, empty_string)
