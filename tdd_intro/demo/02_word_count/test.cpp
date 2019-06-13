@@ -24,7 +24,8 @@ such: 1
  * Empty string:                  done
  * With punctual symbols:         done
  * With whitespaces:              done
- * With whitespaces and pubctual:
+ * With whitespaces and pubctual: done
+ * With on start punctuals:
  * One word:                      done
  * One word twice:
  * Two different words;           done
@@ -44,9 +45,17 @@ std::map<std::string, int> count_words(const std::string& input)
     for (;;)
     {
         pos_of_whitespace = input.find_first_of(" .,?!;", first_index);
-        result.insert({input.substr(first_index, pos_of_whitespace), 1});
+        auto substr = input.substr(first_index, pos_of_whitespace - first_index);
 
         first_index = pos_of_whitespace + 1;
+
+        if (substr.size() == 0)
+        {
+            continue;
+        }
+
+        result.insert({substr, 1});
+
 
         if (pos_of_whitespace == std::string::npos
                 || first_index >= input.size())
@@ -85,12 +94,10 @@ TEST(WordCount, two_different_words)
 {
     std::map<std::string, int> expected = {{"one", 1}, {"two", 1}};
     EXPECT_EQ(expected, count_words("one.two"));
-
 }
 
 TEST(WordCount, with_whitespaces_and_punctual)
 {
     std::map<std::string, int> expected = {{"one", 1}, {"two", 1}, {"three", 1}, {"four", 1}};
     EXPECT_EQ(expected, count_words(" one.two three? four"));
-
 }
