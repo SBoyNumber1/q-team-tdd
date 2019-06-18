@@ -197,7 +197,7 @@ const Display s_display123456789 = { "    _  _     _  _  _  _  _ ",
 };
 
 
-int recognize(const Digit& digit)
+int recognize(const Digit& /*digit*/)
 {
     return 0;
 }
