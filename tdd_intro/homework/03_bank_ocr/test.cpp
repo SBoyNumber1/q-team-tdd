@@ -204,7 +204,7 @@ const Display s_display123456789 = { "    _  _     _  _  _  _  _ ",
 /*
 List of tests:
     0 - done
-    1
+    1 - done
     2
     3
     4
@@ -236,4 +236,44 @@ TEST(BankOcr, recognize_zero)
 TEST(BankOcr, recognize_one)
 {
     EXPECT_EQ(1, recognize(s_digit1));
+}
+
+TEST(BankOcr, recognize_two)
+{
+    EXPECT_EQ(2, recognize(s_digit2));
+}
+
+TEST(BankOcr, recognize_three)
+{
+    EXPECT_EQ(3, recognize(s_digit3));
+}
+
+TEST(BankOcr, recognize_four)
+{
+    EXPECT_EQ(4, recognize(s_digit4));
+}
+
+TEST(BankOcr, recognize_five)
+{
+    EXPECT_EQ(5, recognize(s_digit5));
+}
+
+TEST(BankOcr, recognize_six)
+{
+    EXPECT_EQ(6, recognize(s_digit6));
+}
+
+TEST(BankOcr, recognize_seven)
+{
+    EXPECT_EQ(7, recognize(s_digit7));
+}
+
+TEST(BankOcr, recognize_eight)
+{
+    EXPECT_EQ(8, recognize(s_digit8));
+}
+
+TEST(BankOcr, recognize_nine)
+{
+    EXPECT_EQ(9, recognize(s_digit9));
 }
