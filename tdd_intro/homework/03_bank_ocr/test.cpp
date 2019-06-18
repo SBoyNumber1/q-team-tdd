@@ -199,7 +199,7 @@ const Display s_display123456789 = { "    _  _     _  _  _  _  _ ",
 
 int recognize(const Digit& digit)
 {
-    return 1;
+    return 0;
 }
 
 TEST(BankOcr, recognize_zero)
