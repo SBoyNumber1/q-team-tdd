@@ -100,6 +100,11 @@ struct Display
     std::string lines[g_linesInDigit];
 };
 
+bool operator==(const Digit& lhs, const Digit& rhs)
+{
+    return lhs.lines == rhs.lines;
+}
+
 const Digit s_digit0 = { " _ ",
                          "| |",
                          "|_|"
@@ -210,9 +215,17 @@ List of tests:
     9
 */
 
-int recognize(const Digit& /*digit*/)
+int recognize(const Digit& digit)
 {
-    return 0;
+    if (digit == s_digit0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+
 }
 
 TEST(BankOcr, recognize_zero)
