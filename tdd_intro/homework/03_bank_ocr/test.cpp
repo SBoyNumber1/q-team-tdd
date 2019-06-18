@@ -205,14 +205,14 @@ const Display s_display123456789 = { "    _  _     _  _  _  _  _ ",
 List of tests:
     0 - done
     1 - done
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
+    2 - done
+    3 - done
+    4 - done
+    5 - done
+    6 - done
+    7 - done
+    8 - done
+    9 - done
 */
 
 int recognize(const Digit& digit)
@@ -221,11 +221,44 @@ int recognize(const Digit& digit)
     {
         return 0;
     }
-    else
+    else if (digit == s_digit1)
     {
         return 1;
     }
+    else if (digit == s_digit2)
+    {
+        return 2;
+    }
+    else if (digit == s_digit3)
+    {
+        return 3;
+    }
+    else if (digit == s_digit4)
+    {
+        return 4;
+    }
+    else if (digit == s_digit5)
+    {
+        return 5;
+    }
+    else if (digit == s_digit6)
+    {
+        return 6;
+    }
+    else if (digit == s_digit7)
+    {
+        return 7;
+    }
+    else if (digit == s_digit8)
+    {
+        return 8;
+    }
+    else if (digit == s_digit9)
+    {
+        return 9;
+    }
 
+    return -1;
 }
 
 TEST(BankOcr, recognize_zero)
