@@ -91,13 +91,13 @@ const unsigned short g_digitLen = 3;
 const unsigned short g_linesInDigit = 3;
 struct Digit
 {
-    std::string lines[g_linesInDigit];
+    std::vector<std::string> lines;
 };
 
 const unsigned short g_digitsOnDisplay = 9;
 struct Display
 {
-    std::string lines[g_linesInDigit];
+    std::vector<std::string> lines;
 };
 
 bool operator==(const Digit& lhs, const Digit& rhs)
@@ -105,101 +105,101 @@ bool operator==(const Digit& lhs, const Digit& rhs)
     return lhs.lines == rhs.lines;
 }
 
-const Digit s_digit0 = { " _ ",
+const Digit s_digit0  = {{" _ ",
                          "| |",
                          "|_|"
-                       };
-const Digit s_digit1 = { "   ",
+                       }};
+const Digit s_digit1 = {{ "   ",
                          "  |",
                          "  |"
-                       };
-const Digit s_digit2 = { " _ ",
+                       }};
+const Digit s_digit2 = {{ " _ ",
                          " _|",
                          "|_ "
-                       };
-const Digit s_digit3 = { " _ ",
+                       }};
+const Digit s_digit3 = {{ " _ ",
                          " _|",
                          " _|"
-                       };
-const Digit s_digit4 = { "   ",
+                       }};
+const Digit s_digit4 = {{ "   ",
                          "|_|",
                          "  |"
-                       };
-const Digit s_digit5 = { " _ ",
+                       }};
+const Digit s_digit5 = {{ " _ ",
                          "|_ ",
                          " _|"
-                       };
-const Digit s_digit6 = { " _ ",
+                       }};
+const Digit s_digit6 = {{ " _ ",
                          "|_ ",
                          "|_|"
-                       };
-const Digit s_digit7 = { " _ ",
+                       }};
+const Digit s_digit7 = {{ " _ ",
                          "  |",
                          "  |"
-                       };
-const Digit s_digit8 = { " _ ",
+                       }};
+const Digit s_digit8 = {{ " _ ",
                          "|_|",
                          "|_|"
-                       };
-const Digit s_digit9 = { " _ ",
+                       }};
+const Digit s_digit9 = {{ " _ ",
                          "|_|",
                          " _|"
-                       };
+                       }};
 
-const Display s_displayAll0 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll0 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "| || || || || || || || || |",
                                 "|_||_||_||_||_||_||_||_||_|"
-};
+}};
 
-const Display s_displayAll1 = { "                           ",
+const Display s_displayAll1 = {{ "                           ",
                                 "  |  |  |  |  |  |  |  |  |",
                                 "  |  |  |  |  |  |  |  |  |"
-};
+}};
 
-const Display s_displayAll2 = {  " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll2 = {{  " _  _  _  _  _  _  _  _  _ ",
                                  " _| _| _| _| _| _| _| _| _|",
                                  "|_ |_ |_ |_ |_ |_ |_ |_ |_ "
-};
+}};
 
-const Display s_displayAll3 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll3 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 " _| _| _| _| _| _| _| _| _|",
                                 " _| _| _| _| _| _| _| _| _|"
-};
+}};
 
-const Display s_displayAll4 = { "                           ",
+const Display s_displayAll4 = {{ "                           ",
                                 "|_||_||_||_||_||_||_||_||_|",
                                 "  |  |  |  |  |  |  |  |  |"
-};
+}};
 
-const Display s_displayAll5 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll5 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "|_ |_ |_ |_ |_ |_ |_ |_ |_ ",
                                 " _| _| _| _| _| _| _| _| _|"
-};
+}};
 
-const Display s_displayAll6 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll6 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "|_ |_ |_ |_ |_ |_ |_ |_ |_ ",
                                 "|_||_||_||_||_||_||_||_||_|"
-};
+}};
 
-const Display s_displayAll7 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll7 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "  |  |  |  |  |  |  |  |  |",
                                 "  |  |  |  |  |  |  |  |  |"
-};
+}};
 
-const Display s_displayAll8 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll8 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "|_||_||_||_||_||_||_||_||_|",
                                 "|_||_||_||_||_||_||_||_||_|"
-};
+}};
 
-const Display s_displayAll9 = { " _  _  _  _  _  _  _  _  _ ",
+const Display s_displayAll9 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "|_||_||_||_||_||_||_||_||_|",
                                 " _| _| _| _| _| _| _| _| _|"
-};
+}};
 
-const Display s_display123456789 = { "    _  _     _  _  _  _  _ ",
+const Display s_display123456789 = {{ "    _  _     _  _  _  _  _ ",
                                      "  | _| _||_||_ |_   ||_||_|",
                                      "  ||_  _|  | _||_|  ||_| _|"
-};
+}};
 
 /*
 List of tests:
@@ -218,7 +218,20 @@ List of tests:
 
 std::vector<Digit> display_to_digits(const Display& input_display)
 {
-    return {};
+    std::vector<Digit> digits;
+    digits.reserve(g_digitsOnDisplay);
+
+    for (size_t i = 0; i < g_digitsOnDisplay * g_linesInDigit; i+=3)
+    {
+        Digit new_digit = {{"", "", ""}};
+        new_digit.lines.at(0) = input_display.lines.at(0).substr(i, 3);
+        new_digit.lines.at(1) = input_display.lines.at(1).substr(i, 3);
+        new_digit.lines.at(2) = input_display.lines.at(2).substr(i, 3);
+
+        digits.push_back(new_digit);
+    }
+
+    return digits;
 }
 
 int recognize(const Digit& digit)
@@ -319,9 +332,8 @@ TEST(BankOcr, recognize_nine)
 
 TEST(BankOcr, display_to_digits)
 {
-    std::vector<Digit> expect = {s_digit0, s_digit1, s_digit2,
-                                 s_digit3, s_digit4, s_digit5,
-                                 s_digit6, s_digit7, s_digit8,
-                                 s_digit9};
+    std::vector<Digit> expect = {s_digit1, s_digit2, s_digit3,
+                                 s_digit4, s_digit5, s_digit6,
+                                 s_digit7, s_digit8, s_digit9};
     EXPECT_EQ(expect, display_to_digits(s_display123456789));
 }
