@@ -145,6 +145,10 @@ const Digit s_digit9 = {{ " _ ",
                          "|_|",
                          " _|"
                        }};
+const Digit s_digit_error = {{"   ",
+                              "   ",
+                              "   "
+                             }};
 
 const Display s_displayAll0 = {{ " _  _  _  _  _  _  _  _  _ ",
                                 "| || || || || || || || || |",
@@ -215,7 +219,9 @@ List of tests:
     9 - done
     display_to_digit - done
     display_to_digit_zero - done
-    error -
+    error - done
+    display_to_int - done
+    display_to_zero - done
 
 */
 
@@ -366,4 +372,14 @@ TEST(BankOcr, display_to_digits_zero)
 TEST(BankOcr, display_to_int)
 {
      EXPECT_EQ(123456789, display_to_int(s_display123456789));
+}
+
+TEST(BankOcr, display_to_int_zero)
+{
+     EXPECT_EQ(000000000, display_to_int(s_displayAll0));
+}
+
+TEST(BankOcr, recognize_error)
+{
+    EXPECT_THROW(recognize(s_digit_error), std::runtime_error);
 }
