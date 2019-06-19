@@ -213,7 +213,13 @@ List of tests:
     7 - done
     8 - done
     9 - done
+    display_to_digit -
 */
+
+std::vector<Digit> display_to_digits(const Display& input_display)
+{
+    return {};
+}
 
 int recognize(const Digit& digit)
 {
@@ -309,4 +315,13 @@ TEST(BankOcr, recognize_eight)
 TEST(BankOcr, recognize_nine)
 {
     EXPECT_EQ(9, recognize(s_digit9));
+}
+
+TEST(BankOcr, display_to_digits)
+{
+    std::vector<Digit> expect = {s_digit0, s_digit1, s_digit2,
+                                 s_digit3, s_digit4, s_digit5,
+                                 s_digit6, s_digit7, s_digit8,
+                                 s_digit9};
+    EXPECT_EQ(expect, display_to_digits(s_display123456789));
 }
