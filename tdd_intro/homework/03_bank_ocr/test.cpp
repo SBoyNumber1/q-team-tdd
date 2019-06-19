@@ -215,6 +215,8 @@ List of tests:
     9 - done
     display_to_digit - done
     display_to_digit_zero - done
+    error -
+
 */
 
 std::vector<Digit> display_to_digits(const Display& input_display)
@@ -233,6 +235,11 @@ std::vector<Digit> display_to_digits(const Display& input_display)
     }
 
     return digits;
+}
+
+int display_to_int(const Display& input_display)
+{
+    return 0;
 }
 
 char recognize(const Digit& digit)
@@ -345,4 +352,9 @@ TEST(BankOcr, display_to_digits_zero)
                                  s_digit0, s_digit0, s_digit0,
                                  s_digit0, s_digit0, s_digit0};
     EXPECT_EQ(expect, display_to_digits(s_displayAll0));
+}
+
+TEST(BankOcr, display_to_int)
+{
+     EXPECT_EQ(123456789, display_to_int(s_display123456789));
 }
