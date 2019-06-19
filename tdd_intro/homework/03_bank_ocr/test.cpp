@@ -235,100 +235,100 @@ std::vector<Digit> display_to_digits(const Display& input_display)
     return digits;
 }
 
-int recognize(const Digit& digit)
+char recognize(const Digit& digit)
 {
     if (digit == s_digit0)
     {
-        return 0;
+        return '0';
     }
     else if (digit == s_digit1)
     {
-        return 1;
+        return '1';
     }
     else if (digit == s_digit2)
     {
-        return 2;
+        return '2';
     }
     else if (digit == s_digit3)
     {
-        return 3;
+        return '3';
     }
     else if (digit == s_digit4)
     {
-        return 4;
+        return '4';
     }
     else if (digit == s_digit5)
     {
-        return 5;
+        return '5';
     }
     else if (digit == s_digit6)
     {
-        return 6;
+        return '6';
     }
     else if (digit == s_digit7)
     {
-        return 7;
+        return '7';
     }
     else if (digit == s_digit8)
     {
-        return 8;
+        return '8';
     }
     else if (digit == s_digit9)
     {
-        return 9;
+        return '9';
     }
 
-    return -1;
+    throw std::runtime_error("invalid digit");
 }
 
 TEST(BankOcr, recognize_zero)
 {
-    EXPECT_EQ(0, recognize(s_digit0));
+    EXPECT_EQ('0', recognize(s_digit0));
 }
 
 TEST(BankOcr, recognize_one)
 {
-    EXPECT_EQ(1, recognize(s_digit1));
+    EXPECT_EQ('1', recognize(s_digit1));
 }
 
 TEST(BankOcr, recognize_two)
 {
-    EXPECT_EQ(2, recognize(s_digit2));
+    EXPECT_EQ('2', recognize(s_digit2));
 }
 
 TEST(BankOcr, recognize_three)
 {
-    EXPECT_EQ(3, recognize(s_digit3));
+    EXPECT_EQ('3', recognize(s_digit3));
 }
 
 TEST(BankOcr, recognize_four)
 {
-    EXPECT_EQ(4, recognize(s_digit4));
+    EXPECT_EQ('4', recognize(s_digit4));
 }
 
 TEST(BankOcr, recognize_five)
 {
-    EXPECT_EQ(5, recognize(s_digit5));
+    EXPECT_EQ('5', recognize(s_digit5));
 }
 
 TEST(BankOcr, recognize_six)
 {
-    EXPECT_EQ(6, recognize(s_digit6));
+    EXPECT_EQ('6', recognize(s_digit6));
 }
 
 TEST(BankOcr, recognize_seven)
 {
-    EXPECT_EQ(7, recognize(s_digit7));
+    EXPECT_EQ('7', recognize(s_digit7));
 }
 
 TEST(BankOcr, recognize_eight)
 {
-    EXPECT_EQ(8, recognize(s_digit8));
+    EXPECT_EQ('8', recognize(s_digit8));
 }
 
 TEST(BankOcr, recognize_nine)
 {
-    EXPECT_EQ(9, recognize(s_digit9));
+    EXPECT_EQ('9', recognize(s_digit9));
 }
 
 TEST(BankOcr, display_to_digits)
