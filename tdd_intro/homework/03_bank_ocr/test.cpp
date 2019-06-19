@@ -237,11 +237,6 @@ std::vector<Digit> display_to_digits(const Display& input_display)
     return digits;
 }
 
-int display_to_int(const Display& input_display)
-{
-    return 0;
-}
-
 char recognize(const Digit& digit)
 {
     if (digit == s_digit0)
@@ -287,6 +282,20 @@ char recognize(const Digit& digit)
 
     throw std::runtime_error("invalid digit");
 }
+
+int display_to_int(const Display& input_display)
+{
+    auto digits = display_to_digits(input_display);
+
+    std::string str_res;
+
+    for (auto& each: digits)
+    {
+        str_res.push_back(recognize(each));
+    }
+    return std::stoi(str_res);
+}
+
 
 TEST(BankOcr, recognize_zero)
 {
