@@ -66,3 +66,61 @@ public:
     virtual double GetAverageWindDirection(IWeatherServer& server, const std::string& date) = 0;
     virtual double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) = 0;
 };
+
+class MockIWeatherServer: public IWeatherServer
+{
+public:
+    std::string GetWeather(const std::string &request) override
+    {
+        if (request == "31.08.2018;03:00")
+        {
+            return "20;181;5.1";
+        }
+        else if (request == "31.08.2018;09:00")
+        {
+            return "23;204;4.9";
+        }
+        else if (request == "31.08.2018;15:00")
+        {
+            return "33;193;4.3";
+        }
+        else if (request == "31.08.2018;21:00")
+        {
+            return "26;179;4.5";
+        }
+        else if (request == "01.09.2018;03:00")
+        {
+            return "19;176;4.2";
+        }
+        else if (request == "01.09.2018;09:00")
+        {
+            return "22;131;4.1";
+        }
+        else if (request == "01.09.2018;15:00")
+        {
+            return "31;109;4.0";
+        }
+        else if (request == "01.09.2018;21:00")
+        {
+            return "24;127;4.1";
+        }
+        else if (request == "02.09.2018;03:00")
+        {
+            return "21;158;3.8";
+        }
+        else if (request == "02.09.2018;09:00")
+        {
+            return "25;201;3.5";
+        }
+        else if (request == "02.09.2018;15:00")
+        {
+            return "34;258;3.7";
+        }
+        else if (request == "02.09.2018;21:00")
+        {
+            return "27;299;4.0";
+        }
+
+        return "";
+    }
+};
