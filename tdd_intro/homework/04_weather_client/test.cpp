@@ -67,6 +67,39 @@ public:
     virtual double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) = 0;
 };
 
+class WeatherClient: public IWeatherClient
+{
+public:
+    double GetAverageTemperature(IWeatherServer& server, const std::string& date) override
+    {
+        return 1;
+    }
+    double GetMinimumTemperature(IWeatherServer& server, const std::string& date) override
+    {
+        return 1;
+    }
+    double GetMaximumTemperature(IWeatherServer& server, const std::string& date) override
+    {
+        return 1;
+    }
+    double GetAverageWindDirection(IWeatherServer& server, const std::string& date) override
+    {
+        return 1;
+    }
+    double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
+    {
+        return 1;
+    }
+};
+
+struct Weather
+{
+public:
+    int temperature = 0;
+    unsigned int wind_duration = 0;
+    double wind_speed = 0.0;
+};
+
 class MockIWeatherServer: public IWeatherServer
 {
 public:
@@ -124,3 +157,10 @@ public:
         return "";
     }
 };
+
+TEST(Weather, maximum_wind_speed_for_invalid_date)
+{
+    MockIWeatherServer server;
+    WeatherClient client;
+    EXPECT_THROW(client.GetMaximumWindSpeed(server, "lalala"), std::runtime_error);
+}
