@@ -225,3 +225,10 @@ TEST(Weather, GetAverageTemperature_invalid_data)
     WeatherClient client;
     EXPECT_THROW(client.GetAverageTemperature(server, "lalala"), std::runtime_error);
 }
+
+TEST(Weather, GetMaximumWindSpeed_normal)
+{
+    MockIWeatherServer server;
+    WeatherClient client;
+    EXPECT_EQ(5.1, client.GetMaximumWindSpeed(server, "31.08.2018"));
+}
