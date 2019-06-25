@@ -88,7 +88,18 @@ public:
     }
     double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
     {
-        return 1;
+        std::string weather_3 = server.GetWeather(date + ";03:00");
+        std::string weather_9 = server.GetWeather(date + ";09:00");
+        std::string weather_15 = server.GetWeather(date + ";15:00");
+        std::string weather_21 = server.GetWeather(date + ";21:00");
+
+        if (weather_3.empty()
+            || weather_9.empty()
+            || weather_15.empty()
+            || weather_21.empty())
+        {
+            throw std::runtime_error("invalid data");
+        }
     }
 };
 
