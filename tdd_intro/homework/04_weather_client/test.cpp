@@ -198,28 +198,28 @@ TEST(Weather, GetMaximumWindSpeed_invalid_date)
     EXPECT_THROW(client.GetMaximumWindSpeed(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetAverageWindDirection_invalied_data)
+TEST(Weather, GetAverageWindDirection_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetAverageWindDirection(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetMaximumTemperature_invalied_data)
+TEST(Weather, GetMaximumTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetMaximumTemperature(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetMinimumTemperature_invalied_data)
+TEST(Weather, GetMinimumTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetMinimumTemperature(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetAverageTemperature_invalied_data)
+TEST(Weather, GetAverageTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
