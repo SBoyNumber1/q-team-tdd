@@ -67,13 +67,41 @@ public:
     virtual double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) = 0;
 };
 
-struct WeatherForDay
+struct RawWeatherForDay
 {
     std::string weather_3;
     std::string weather_9;
     std::string weather_15;
     std::string weather_21;
 };
+
+struct Weather
+{
+public:
+    int temperature = 0;
+    unsigned int wind_duration = 0;
+    double wind_speed = 0.0;
+};
+
+bool operator==(const Weather& lhs, const Weather& rhs)
+{
+    return lhs.temperature == rhs.temperature &&
+            lhs.wind_duration == rhs.wind_duration &&
+            std::abs(lhs.wind_speed - rhs.wind_speed) < 0.01;
+}
+
+struct WeatherForDay
+{
+    Weather weather_3;
+    Weather weather_9;
+    Weather weather_15;
+    Weather weather_21;
+};
+
+Weather parse_weather(const std::string& raw_weather)
+{
+
+}
 
 class WeatherClient: public IWeatherClient
 {
@@ -104,9 +132,17 @@ public:
         return 1;
     }
 private:
+
+
     WeatherForDay get_weather_for_day(IWeatherServer& server, const std::string& date)
     {
-        WeatherForDay weather_for_day;
+        auto raw_weather_for_day = get_raw_weather_for_day(server, date);
+        return {};
+    }
+
+    RawWeatherForDay get_raw_weather_for_day(IWeatherServer& server, const std::string& date)
+    {
+        RawWeatherForDay weather_for_day;
 
         weather_for_day.weather_3 = server.GetWeather(date + ";03:00");
         weather_for_day.weather_9 = server.GetWeather(date + ";09:00");
@@ -123,14 +159,6 @@ private:
 
         return weather_for_day;
     }
-};
-
-struct Weather
-{
-public:
-    int temperature = 0;
-    unsigned int wind_duration = 0;
-    double wind_speed = 0.0;
 };
 
 class MockIWeatherServer: public IWeatherServer
@@ -231,4 +259,44 @@ TEST(Weather, GetMaximumWindSpeed_normal)
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_EQ(5.1, client.GetMaximumWindSpeed(server, "31.08.2018"));
+}
+
+TEST(Weather, parse_weather_no_temperature)
+{
+    EXPECT_THROW(parse_weather(";359;13.2"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_no_wind_duration)
+{
+    EXPECT_THROW(parse_weather("-4;;13.2"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_no_wind_speed)
+{
+    EXPECT_THROW(parse_weather("-4;340;"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_extra_data)
+{
+    EXPECT_THROW(parse_weather("12;12;12;12"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_not_enough_delimeters)
+{
+    EXPECT_THROW(parse_weather("123;123"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_invalid_wind_duration)
+{
+    EXPECT_THROW(parse_weather("-4.5;360;13.2"), std::runtime_error);
+}
+
+TEST(Weather, parse_weather_normal)
+{
+    Weather expected;
+    expected.temperature = -4.5;
+    expected.wind_duration = 120;
+    expected.wind_speed = 13.2;
+
+    EXPECT_EQ(expected, parse_weather("-4.5;120;13.2"));
 }
