@@ -80,18 +80,22 @@ class WeatherClient: public IWeatherClient
 public:
     double GetAverageTemperature(IWeatherServer& server, const std::string& date) override
     {
+        auto weather_for_day = get_weather_for_day(server, date);
         return 1;
     }
     double GetMinimumTemperature(IWeatherServer& server, const std::string& date) override
     {
+        auto weather_for_day = get_weather_for_day(server, date);
         return 1;
     }
     double GetMaximumTemperature(IWeatherServer& server, const std::string& date) override
     {
+        auto weather_for_day = get_weather_for_day(server, date);
         return 1;
     }
     double GetAverageWindDirection(IWeatherServer& server, const std::string& date) override
     {
+        auto weather_for_day = get_weather_for_day(server, date);
         return 1;
     }
     double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
