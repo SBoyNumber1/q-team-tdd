@@ -67,6 +67,14 @@ public:
     virtual double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) = 0;
 };
 
+struct WeatherForDay
+{
+    std::string weather_3;
+    std::string weather_9;
+    std::string weather_15;
+    std::string weather_21;
+};
+
 class WeatherClient: public IWeatherClient
 {
 public:
@@ -88,18 +96,28 @@ public:
     }
     double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
     {
-        std::string weather_3 = server.GetWeather(date + ";03:00");
-        std::string weather_9 = server.GetWeather(date + ";09:00");
-        std::string weather_15 = server.GetWeather(date + ";15:00");
-        std::string weather_21 = server.GetWeather(date + ";21:00");
+        auto weather_for_day = get_weather_for_day(server, date);
+        return 1;
+    }
+private:
+    WeatherForDay get_weather_for_day(IWeatherServer& server, const std::string& date)
+    {
+        WeatherForDay weather_for_day;
 
-        if (weather_3.empty()
-            || weather_9.empty()
-            || weather_15.empty()
-            || weather_21.empty())
+        weather_for_day.weather_3 = server.GetWeather(date + ";03:00");
+        weather_for_day.weather_9 = server.GetWeather(date + ";09:00");
+        weather_for_day.weather_15 = server.GetWeather(date + ";15:00");
+        weather_for_day.weather_21 = server.GetWeather(date + ";21:00");
+
+        if (weather_for_day.weather_3.empty()
+            || weather_for_day.weather_9.empty()
+            || weather_for_day.weather_15.empty()
+            || weather_for_day.weather_21.empty())
         {
             throw std::runtime_error("invalid data");
         }
+
+        return weather_for_day;
     }
 };
 
