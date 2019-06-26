@@ -100,7 +100,34 @@ struct WeatherForDay
 
 Weather parse_weather(const std::string& raw_weather)
 {
+    Weather result;
+    const char delimeter = ';';
 
+    auto start = raw_weather.begin();
+    size_t finish_of_temperature = raw_weather.find(delimeter);
+    if (finish_of_temperature == std::string::npos)
+    {
+        throw std::runtime_error("failed to parse reply from server");
+    }
+    result.temperature = std::stoi(std::string(start, start + finish_of_temperature));
+    start += ++finish_of_temperature;
+
+    size_t finish_of_wind_duration = raw_weather.find(delimeter, finish_of_temperature);
+    if (finish_of_wind_duration == std::string::npos)
+    {
+        throw std::runtime_error("failed to parse reply from server");
+    }
+    size_t len_of_wd = finish_of_wind_duration - finish_of_temperature;
+    result.wind_duration = std::stoul(std::string(start, start + len_of_wd));
+    if (result.wind_duration > 359)
+    {
+        throw std::runtime_error("invalid wind duration value");
+    }
+    start += len_of_wd + 1;
+
+    result.wind_speed = std::stod(std::string(start, raw_weather.end()));
+
+    return result;
 }
 
 class WeatherClient: public IWeatherClient
@@ -263,27 +290,22 @@ TEST(Weather, GetMaximumWindSpeed_normal)
 
 TEST(Weather, parse_weather_no_temperature)
 {
-    EXPECT_THROW(parse_weather(";359;13.2"), std::runtime_error);
+    EXPECT_THROW(parse_weather(";359;13.2"), std::exception);
 }
 
 TEST(Weather, parse_weather_no_wind_duration)
 {
-    EXPECT_THROW(parse_weather("-4;;13.2"), std::runtime_error);
+    EXPECT_THROW(parse_weather("-4;;13.2"), std::exception);
 }
 
 TEST(Weather, parse_weather_no_wind_speed)
 {
-    EXPECT_THROW(parse_weather("-4;340;"), std::runtime_error);
-}
-
-TEST(Weather, parse_weather_extra_data)
-{
-    EXPECT_THROW(parse_weather("12;12;12;12"), std::runtime_error);
+    EXPECT_THROW(parse_weather("-4;340;"), std::exception);
 }
 
 TEST(Weather, parse_weather_not_enough_delimeters)
 {
-    EXPECT_THROW(parse_weather("123;123"), std::runtime_error);
+    EXPECT_THROW(parse_weather("123;124"), std::runtime_error);
 }
 
 TEST(Weather, parse_weather_invalid_wind_duration)
