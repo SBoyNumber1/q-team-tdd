@@ -136,7 +136,10 @@ public:
     double GetAverageTemperature(IWeatherServer& server, const std::string& date) override
     {
         auto weather_for_day = get_weather_for_day(server, date);
-        return 1;
+        return static_cast<double>(weather_for_day.weather_3.temperature +
+                                weather_for_day.weather_9.temperature +
+                                weather_for_day.weather_15.temperature +
+                                weather_for_day.weather_21.temperature) / 4;
     }
     double GetMinimumTemperature(IWeatherServer& server, const std::string& date) override
     {
