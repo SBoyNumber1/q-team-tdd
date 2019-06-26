@@ -299,6 +299,14 @@ TEST(Weather, GetMaximumWindSpeed_normal)
     EXPECT_EQ(5.1, client.GetMaximumWindSpeed(server, "31.08.2018"));
 }
 
+TEST(Weather, GetAverageWindDirection_normal)
+{
+    MockIWeatherServer server;
+    WeatherClient client;
+    EXPECT_EQ(135.75, client.GetAverageWindDirection(server, "01.09.2018"));
+}
+
+
 TEST(Weather, parse_weather_no_temperature)
 {
     EXPECT_THROW(parse_weather(";359;13.2"), std::exception);
