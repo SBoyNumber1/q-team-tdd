@@ -141,7 +141,10 @@ public:
     double GetMinimumTemperature(IWeatherServer& server, const std::string& date) override
     {
         auto weather_for_day = get_weather_for_day(server, date);
-        return 1;
+        return std::min<int>({weather_for_day.weather_3.temperature,
+                                weather_for_day.weather_9.temperature,
+                                weather_for_day.weather_15.temperature,
+                                weather_for_day.weather_21.temperature});
     }
     double GetMaximumTemperature(IWeatherServer& server, const std::string& date) override
     {
