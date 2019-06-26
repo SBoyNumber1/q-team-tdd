@@ -271,70 +271,70 @@ public:
     }
 };
 
-TEST(Weather, GetMaximumWindSpeed_invalid_date)
+TEST(WeatherClient, GetMaximumWindSpeed_invalid_date)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetMaximumWindSpeed(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetAverageWindDirection_invalid_data)
+TEST(WeatherClient, GetAverageWindDirection_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetAverageWindDirection(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetMaximumTemperature_invalid_data)
+TEST(WeatherClient, GetMaximumTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetMaximumTemperature(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetMinimumTemperature_invalid_data)
+TEST(WeatherClient, GetMinimumTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetMinimumTemperature(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetAverageTemperature_invalid_data)
+TEST(WeatherClient, GetAverageTemperature_invalid_data)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_THROW(client.GetAverageTemperature(server, "lalala"), std::runtime_error);
 }
 
-TEST(Weather, GetMaximumWindSpeed_normal)
+TEST(WeatherClient, GetMaximumWindSpeed_normal)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_EQ(5.1, client.GetMaximumWindSpeed(server, "31.08.2018"));
 }
 
-TEST(Weather, GetAverageWindDirection_normal)
+TEST(WeatherClient, GetAverageWindDirection_normal)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_EQ(135.75, client.GetAverageWindDirection(server, "01.09.2018"));
 }
 
-TEST(Weather, GetMaximumTemperature_normal)
+TEST(WeatherClient, GetMaximumTemperature_normal)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_EQ(31, client.GetMaximumTemperature(server, "01.09.2018"));
 }
 
-TEST(Weather, GetMinimumTemperature_normal)
+TEST(WeatherClient, GetMinimumTemperature_normal)
 {
     MockIWeatherServer server;
     WeatherClient client;
     EXPECT_EQ(21, client.GetMinimumTemperature(server, "02.09.2018"));
 }
 
-TEST(Weather, GetAverageTemperature_normal)
+TEST(WeatherClient, GetAverageTemperature_normal)
 {
     MockIWeatherServer server;
     WeatherClient client;
@@ -342,32 +342,32 @@ TEST(Weather, GetAverageTemperature_normal)
 }
 
 
-TEST(Weather, parse_weather_no_temperature)
+TEST(ServerReplyParser, parse_weather_no_temperature)
 {
     EXPECT_THROW(parse_weather(";359;13.2"), std::exception);
 }
 
-TEST(Weather, parse_weather_no_wind_direction)
+TEST(ServerReplyParser, parse_weather_no_wind_direction)
 {
     EXPECT_THROW(parse_weather("-4;;13.2"), std::exception);
 }
 
-TEST(Weather, parse_weather_no_wind_speed)
+TEST(ServerReplyParser, parse_weather_no_wind_speed)
 {
     EXPECT_THROW(parse_weather("-4;340;"), std::exception);
 }
 
-TEST(Weather, parse_weather_not_enough_delimeters)
+TEST(ServerReplyParser, parse_weather_not_enough_delimeters)
 {
     EXPECT_THROW(parse_weather("123;124"), std::runtime_error);
 }
 
-TEST(Weather, parse_weather_invalid_wind_direction)
+TEST(ServerReplyParser, parse_weather_invalid_wind_direction)
 {
     EXPECT_THROW(parse_weather("-4.5;360;13.2"), std::runtime_error);
 }
 
-TEST(Weather, parse_weather_normal)
+TEST(ServerReplyParser, parse_weather_normal)
 {
     Weather expected;
     expected.temperature = -4.5;
