@@ -156,6 +156,11 @@ public:
     double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
     {
         auto weather_for_day = get_weather_for_day(server, date);
+        return std::max<double>({weather_for_day.weather_3.wind_speed,
+                                weather_for_day.weather_9.wind_speed,
+                                weather_for_day.weather_15.wind_speed,
+                                weather_for_day.weather_21.wind_speed});
+
         return 1;
     }
 private:
@@ -164,7 +169,13 @@ private:
     WeatherForDay get_weather_for_day(IWeatherServer& server, const std::string& date)
     {
         auto raw_weather_for_day = get_raw_weather_for_day(server, date);
-        return {};
+        WeatherForDay result;
+        result.weather_3 = parse_weather(raw_weather_for_day.weather_3);
+        result.weather_9 = parse_weather(raw_weather_for_day.weather_9);
+        result.weather_15 = parse_weather(raw_weather_for_day.weather_15);
+        result.weather_21 = parse_weather(raw_weather_for_day.weather_21);
+
+        return result;
     }
 
     RawWeatherForDay get_raw_weather_for_day(IWeatherServer& server, const std::string& date)
