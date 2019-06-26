@@ -79,14 +79,14 @@ struct Weather
 {
 public:
     int temperature = 0;
-    unsigned int wind_duration = 0;
+    unsigned int wind_direction = 0;
     double wind_speed = 0.0;
 };
 
 bool operator==(const Weather& lhs, const Weather& rhs)
 {
     return lhs.temperature == rhs.temperature &&
-            lhs.wind_duration == rhs.wind_duration &&
+            lhs.wind_direction == rhs.wind_direction &&
             std::abs(lhs.wind_speed - rhs.wind_speed) < 0.01;
 }
 
@@ -112,14 +112,14 @@ Weather parse_weather(const std::string& raw_weather)
     result.temperature = std::stoi(std::string(start, start + finish_of_temperature));
     start += ++finish_of_temperature;
 
-    size_t finish_of_wind_duration = raw_weather.find(delimeter, finish_of_temperature);
-    if (finish_of_wind_duration == std::string::npos)
+    size_t finish_of_wind_direction = raw_weather.find(delimeter, finish_of_temperature);
+    if (finish_of_wind_direction == std::string::npos)
     {
         throw std::runtime_error("failed to parse reply from server");
     }
-    size_t len_of_wd = finish_of_wind_duration - finish_of_temperature;
-    result.wind_duration = std::stoul(std::string(start, start + len_of_wd));
-    if (result.wind_duration > 359)
+    size_t len_of_wd = finish_of_wind_direction - finish_of_temperature;
+    result.wind_direction = std::stoul(std::string(start, start + len_of_wd));
+    if (result.wind_direction > 359)
     {
         throw std::runtime_error("invalid wind duration value");
     }
@@ -151,7 +151,11 @@ public:
     double GetAverageWindDirection(IWeatherServer& server, const std::string& date) override
     {
         auto weather_for_day = get_weather_for_day(server, date);
-        return 1;
+        return static_cast<double>(weather_for_day.weather_3.wind_direction +
+                                weather_for_day.weather_9.wind_direction +
+                                weather_for_day.weather_15.wind_direction +
+                                weather_for_day.weather_21.wind_direction) / 4;
+
     }
     double GetMaximumWindSpeed(IWeatherServer& server, const std::string& date) override
     {
@@ -312,7 +316,7 @@ TEST(Weather, parse_weather_no_temperature)
     EXPECT_THROW(parse_weather(";359;13.2"), std::exception);
 }
 
-TEST(Weather, parse_weather_no_wind_duration)
+TEST(Weather, parse_weather_no_wind_direction)
 {
     EXPECT_THROW(parse_weather("-4;;13.2"), std::exception);
 }
@@ -327,7 +331,7 @@ TEST(Weather, parse_weather_not_enough_delimeters)
     EXPECT_THROW(parse_weather("123;124"), std::runtime_error);
 }
 
-TEST(Weather, parse_weather_invalid_wind_duration)
+TEST(Weather, parse_weather_invalid_wind_direction)
 {
     EXPECT_THROW(parse_weather("-4.5;360;13.2"), std::runtime_error);
 }
@@ -336,7 +340,7 @@ TEST(Weather, parse_weather_normal)
 {
     Weather expected;
     expected.temperature = -4.5;
-    expected.wind_duration = 120;
+    expected.wind_direction = 120;
     expected.wind_speed = 13.2;
 
     EXPECT_EQ(expected, parse_weather("-4.5;120;13.2"));
