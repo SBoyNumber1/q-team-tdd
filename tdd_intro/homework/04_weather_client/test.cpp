@@ -321,6 +321,13 @@ TEST(Weather, GetMaximumTemperature_normal)
     EXPECT_EQ(31, client.GetMaximumTemperature(server, "01.09.2018"));
 }
 
+TEST(Weather, GetMinimumTemperature_normal)
+{
+    MockIWeatherServer server;
+    WeatherClient client;
+    EXPECT_EQ(21, client.GetMinimumTemperature(server, "02.09.2018"));
+}
+
 
 TEST(Weather, parse_weather_no_temperature)
 {
