@@ -62,9 +62,7 @@ public:
 
     void MakeAmericano(CupSize size)
     {
-        int size_of_ingridient = 0;
-
-        size_of_ingridient = (size == CupSize::Little) ? 50: 70;
+        int size_of_ingridient = (size == CupSize::Little) ? 50: 70;
 
         m_ingdridient->AddWater(size_of_ingridient, 60);
         m_ingdridient->AddCoffee(size_of_ingridient);
@@ -72,9 +70,11 @@ public:
 
     void MakeCappuccino(CupSize size)
     {
-        m_ingdridient->AddMilk(33);
-        m_ingdridient->AddCoffee(33);
-        m_ingdridient->AddMilkFoam(33);
+        int size_of_ingridient = (size == CupSize::Little) ? 33: 46;
+
+        m_ingdridient->AddMilk(size_of_ingridient);
+        m_ingdridient->AddCoffee(size_of_ingridient);
+        m_ingdridient->AddMilkFoam(size_of_ingridient);
     }
 
 
