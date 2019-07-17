@@ -100,3 +100,18 @@ TEST(CoffeeMachine, make_little_americano)
 }
 
 
+TEST(CoffeeMachine, make_big_americano)
+{
+    std::unique_ptr<MockSourceOfIngridient> ingridient(new MockSourceOfIngridient());
+
+    EXPECT_CALL(*ingridient, AddWater(70, 60)).Times(1);
+    EXPECT_CALL(*ingridient, AddCoffee(70)).Times(1);
+
+    CoffeeMachine machine(std::move(ingridient));
+
+    machine.MakeAmericano(CupSize::Big);
+}
+
+
+
+
