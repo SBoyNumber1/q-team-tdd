@@ -60,9 +60,13 @@ public:
     {
     }
 
-    void MakeAmericano(CupSize /*size*/)
+    void MakeAmericano(CupSize size)
     {
-
+        if (size == CupSize::Little)
+        {
+            m_ingdridient->AddWater(50, 60);
+            m_ingdridient->AddCoffee(50);
+        }
     }
 
 private:
@@ -93,5 +97,6 @@ TEST(CoffeeMachine, make_little_americano)
     CoffeeMachine machine(std::move(ingridient));
 
     machine.MakeAmericano(CupSize::Little);
-
 }
+
+
