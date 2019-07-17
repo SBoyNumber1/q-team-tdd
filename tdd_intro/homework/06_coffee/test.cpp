@@ -77,6 +77,11 @@ public:
         m_ingdridient->AddMilkFoam(size_of_ingridient);
     }
 
+    void MakeLatte(CupSize size)
+    {
+
+    }
+
 
 private:
     std::unique_ptr<ISourceOfIngredients> m_ingdridient;
@@ -145,5 +150,27 @@ TEST(CoffeeMachine, make_big_capuchino)
     machine.MakeCappuccino(CupSize::Big);
 }
 
+TEST(CoffeeMachine, make_little_late)
+{
+    std::unique_ptr<MockSourceOfIngridient> ingridient(new MockSourceOfIngridient());
 
+    EXPECT_CALL(*ingridient, AddMilk(25));
+    EXPECT_CALL(*ingridient, AddCoffee(50));
+    EXPECT_CALL(*ingridient, AddMilkFoam(25));
+
+    CoffeeMachine machine(std::move(ingridient));
+    machine.MakeLatte(CupSize::Little);
+}
+
+TEST(CoffeeMachine, make_big_late)
+{
+    std::unique_ptr<MockSourceOfIngridient> ingridient(new MockSourceOfIngridient());
+
+    EXPECT_CALL(*ingridient, AddMilk(35));
+    EXPECT_CALL(*ingridient, AddCoffee(70));
+    EXPECT_CALL(*ingridient, AddMilkFoam(35));
+
+    CoffeeMachine machine(std::move(ingridient));
+    machine.MakeLatte(CupSize::Big);
+}
 
