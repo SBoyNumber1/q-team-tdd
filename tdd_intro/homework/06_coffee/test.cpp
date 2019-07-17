@@ -66,7 +66,11 @@ public:
         {
             m_ingdridient->AddWater(50, 60);
             m_ingdridient->AddCoffee(50);
+            return;
         }
+
+        m_ingdridient->AddWater(70, 60);
+        m_ingdridient->AddCoffee(70);
     }
 
 private:
