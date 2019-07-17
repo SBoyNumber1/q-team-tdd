@@ -72,7 +72,9 @@ public:
 
     void MakeCappuccino(CupSize size)
     {
-
+        m_ingdridient->AddMilk(33);
+        m_ingdridient->AddCoffee(33);
+        m_ingdridient->AddMilkFoam(33);
     }
 
 
