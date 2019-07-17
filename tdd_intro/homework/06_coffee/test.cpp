@@ -64,13 +64,7 @@ public:
     {
         int size_of_ingridient = 0;
 
-        if (size == CupSize::Little)
-        {
-            size_of_ingridient = 50;
-        }
-        else {
-            size_of_ingridient = 70;
-        }
+        size_of_ingridient = (size == CupSize::Little) ? 50: 70;
 
         m_ingdridient->AddWater(size_of_ingridient, 60);
         m_ingdridient->AddCoffee(size_of_ingridient);
