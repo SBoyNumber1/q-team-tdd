@@ -79,6 +79,23 @@ public:
 
     void MakeLatte(CupSize size)
     {
+        int size_of_coffee = 0;
+        int size_of_other = 0;
+
+        if (size == CupSize::Little)
+        {
+            size_of_coffee = 50;
+            size_of_other = 25;
+        }
+        else
+        {
+            size_of_coffee = 70;
+            size_of_other = 35;
+        }
+
+        m_ingdridient->AddMilk(size_of_other);
+        m_ingdridient->AddCoffee(size_of_coffee);
+        m_ingdridient->AddMilkFoam(size_of_other);
 
     }
 
