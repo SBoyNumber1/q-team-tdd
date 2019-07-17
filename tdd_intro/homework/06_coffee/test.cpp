@@ -99,7 +99,11 @@ public:
     }
     void MakeMarochino(CupSize size)
     {
+        int size_of_ingridient = (size == CupSize::Little) ? 25: 35;
 
+        m_ingdridient->AddChocolate(size_of_ingridient);
+        m_ingdridient->AddCoffee(size_of_ingridient);
+        m_ingdridient->AddMilkFoam(size_of_ingridient);
     }
 
 
