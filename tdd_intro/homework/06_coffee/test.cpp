@@ -62,15 +62,18 @@ public:
 
     void MakeAmericano(CupSize size)
     {
+        int size_of_ingridient = 0;
+
         if (size == CupSize::Little)
         {
-            m_ingdridient->AddWater(50, 60);
-            m_ingdridient->AddCoffee(50);
-            return;
+            size_of_ingridient = 50;
+        }
+        else {
+            size_of_ingridient = 70;
         }
 
-        m_ingdridient->AddWater(70, 60);
-        m_ingdridient->AddCoffee(70);
+        m_ingdridient->AddWater(size_of_ingridient, 60);
+        m_ingdridient->AddCoffee(size_of_ingridient);
     }
 
 private:
