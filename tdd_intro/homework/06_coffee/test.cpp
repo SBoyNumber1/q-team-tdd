@@ -133,5 +133,17 @@ TEST(CoffeeMachine, make_little_capuchino)
     machine.MakeCappuccino(CupSize::Little);
 }
 
+TEST(CoffeeMachine, make_big_capuchino)
+{
+    std::unique_ptr<MockSourceOfIngridient> ingridient(new MockSourceOfIngridient());
+
+    EXPECT_CALL(*ingridient, AddMilk(46));
+    EXPECT_CALL(*ingridient, AddCoffee(46));
+    EXPECT_CALL(*ingridient, AddMilkFoam(46));
+
+    CoffeeMachine machine(std::move(ingridient));
+    machine.MakeCappuccino(CupSize::Big);
+}
+
 
 
